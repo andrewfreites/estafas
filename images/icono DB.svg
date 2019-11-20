@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="200px"
+	 height="200px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve">
+<g id="texto">
+	<path fill="#FFFFFF" stroke="#1B1464" stroke-width="3" stroke-miterlimit="10" d="M198.5,183.861
+		c0,6.479-5.013,14.639-11.525,14.639H14.014c-6.512,0-12.514-8.16-12.514-14.639V12.743C1.5,6.264,7.501,1.5,14.014,1.5h172.961
+		c6.513,0,11.525,4.764,11.525,11.243V183.861z"/>
+	<text transform="matrix(1 0 0 1 58.4185 27.5)"><tspan x="0" y="0" fill="#1B1464" stroke="#1B1464" stroke-width="0.5" stroke-miterlimit="10" font-family="'Latha-Bold'" font-size="18">REALIZAR</tspan><tspan x="-4.263" y="21.6" fill="#1B1464" stroke="#1B1464" stroke-width="0.5" stroke-miterlimit="10" font-family="'Latha-Bold'" font-size="18">CONSULTA</tspan></text>
+</g>
+<g id="dibujo">
+	<ellipse fill="#1B1464" cx="100.333" cy="87.166" rx="38.667" ry="12.167"/>
+	<line fill="#1B1464" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" x1="62" y1="99" x2="62" y2="114"/>
+	<line fill="#1B1464" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" x1="139" y1="99" x2="139" y2="114"/>
+	<g id="fondo">
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M62,114c0,5.804,16.996,10.5,38,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M139,114c0,5.804-17.443,10.5-39,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M62,99c0,5.804,16.996,10.5,38,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M139,99c0,5.804-17.443,10.5-39,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M62,135c0,5.804,16.996,10.5,38,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M139,135c0,5.804-17.443,10.5-39,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M62,120c0,5.804,16.996,10.5,38,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M139,120c0,5.804-17.443,10.5-39,10.5"/>
+		<line fill="#1B1464" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" x1="62" y1="120" x2="62" y2="135"/>
+		<line fill="#1B1464" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" x1="139" y1="120" x2="139" y2="135"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M62,156c0,5.804,16.996,10.5,38,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M139,156c0,5.804-17.443,10.5-39,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M62,141c0,5.804,16.996,10.5,38,10.5"/>
+		<path fill="none" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" d="M139,141c0,5.804-17.443,10.5-39,10.5"/>
+		<line fill="#1B1464" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" x1="62" y1="141" x2="62" y2="156"/>
+		<line fill="#1B1464" stroke="#1B1464" stroke-width="2" stroke-miterlimit="10" x1="139" y1="141" x2="139" y2="156"/>
+	</g>
+</g>
+</svg>
