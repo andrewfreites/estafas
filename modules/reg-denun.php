@@ -23,6 +23,10 @@ $telefono_victima=$_POST['telefono_victima'];
 $email_victima=$_POST['email_victima'];
 $fecha=$_POST['fecha'];
 $descripcion_denuncia=$_POST['descripcion_denuncia'];
+$mensaje_victima="Esta persona ha sido estafada antes ";
+$mensaje_cuenta="Esta cuenta ha estafado antes ";
+$mensaje_telefono="Este numero de teléfono ha estafado antes ";
+$Veces=" veces";
 
 //REGISTRO DE DATOS DE VICTIMA
 
@@ -39,17 +43,27 @@ $descripcion_denuncia=$_POST['descripcion_denuncia'];
   if ($countVictim == 0) {
     //registra los datos de la victima en la tabla victim
     $QueryVictim="INSERT INTO victim (nombre, cedula, telefono, email, veces) VALUES ('$nombre_victima', '$cedula_victima', '$telefono_victima', '$email_victima', 1)";
-    echo "se creó datos de la victima";
+    echo "<p>Se registró una nueva victima</p>";
   } else{ //si no solo se actualiza el numero de veces que ha sido estafada
     //consulta la cantidad de veces que ha sido estafado
     $CheckVeces="SELECT veces FROM victim where cedula = '$_POST[cedula_sospechoso]' ";
     //mantiene los datos de la conexion
-    $resultVeces = $conn-> query($CheckVeces);
+    $ResultVeces= mysqli_query($conn,$CheckVeces);
+    //Guarda el valor de veces la fila de la tabla victim
+    $RowVictim= mysqli_fetch_assoc($ResultVeces);
+    //variable para guardar 'veces' de la tabla victim
+    $TimesVictim=$RowVictim['veces'];
+    //valida las veces que ha sido estafada antes y muestra un mensaje segun la cantidad de veces
+    if($RowVictim['veces']>1){
+      echo "<script type='text/javascript'>alert('$mensaje_victima $TimesVictim $Veces')</script>";
+    } else{
+      echo "<script type='text/javascript'>alert('$mensaje_victima')</script>";
+    }
     //suma una vez a las veces que ha sido estafado
-    $veces=$CheckVeces + 1;
+    $veces=$RowVictim['veces'] + 1;
     //actualiza el campo $veces con un caso más
-    $QueryVictim= "UPDATE victim SET veces='$veces' WHERE numero='$_POST[numero_sospechoso]'";
-    echo "se actualizó datos de la victima";
+    $QueryVictim= "UPDATE victim SET veces='$veces' WHERE cedula='$_POST[cedula_victima]'";
+    echo "<p>Se actualizó datos de la victima debido a que ya ha realizado denuncias anteriormente</p>";
   }
 
 //REGISTRO DE LA CUENTA DEL SOSPECHOSO
@@ -64,22 +78,26 @@ $descripcion_denuncia=$_POST['descripcion_denuncia'];
 
     // Si el resultado es 1 entonces la cuenta existe, 
     if ($count == 1) {
-        //revisar el numero de veces que ha sido registrada la cuenta
+        //guarda la consulta de los casos en la tabla cuentas
         $CheckCasos= "SELECT casos FROM accounts WHERE numero = '$_POST[numero_sospechoso]'";
+        //guarda el resultado de la consulta
+        $ResultAccounts = mysqli_query($conn,$CheckCasos);
+        //Guarda el valor de la consulta
+        $RowAccount= mysqli_fetch_assoc($ResultAccounts);
+        //variable que guarda el valor de la columna 'casos' de la tabla 'accounts'
+        $TimesAccount=$RowAccount['casos'];
         //Si es mayor a 1 muestra una alerta en plural, si no en singular
-        if ($CheckCasos>1) {
-            $mensaje="Esta cuenta ha estafado antes ";
-            $veces=" veces";
-            echo "<script type='text/javascript'>alert('$mensaje $CheckCasos $veces');</script>";
+        if ($RowAccount['casos']>1) {
+          echo "<script type='text/javascript'>alert('$mensaje_cuenta $TimesAccount $Veces')</script>";
         } else{
-            echo "<script type='text/javascript'>alert('$mensaje');</script>";
+          echo "<script type='text/javascript'>alert('$mensaje_cuenta')</script>";
         }
-        $casos=$CheckCasos + 1; //suma una denuncia al conteo de casos de la cuenta
+        $casos=$RowAccount['casos'] + 1; //suma una denuncia al conteo de casos de la cuenta
         $QueryAccounts= "UPDATE accounts SET casos='$casos' WHERE numero='$_POST[numero_sospechoso]'";
-        echo "se actualizó el numero de casos de la cuenta";
+        echo "<p>Se actualizó el numero de casos de estafa asociados a la cuenta</p>";
     } else{
         $QueryAccounts= "INSERT INTO accounts (banco, numero, casos, sospechoso) VALUES ('$banco_sospechoso', '$numero_sospechoso', 1,'$telefono_sospechoso')";
-        echo "se creó un registro de cuenta";
+        echo "<p>Se registro una nueva cuenta bancaria estafadora en la base datos</p>";
     }
 
 //registro de datos del sospechoso
@@ -93,36 +111,46 @@ $descripcion_denuncia=$_POST['descripcion_denuncia'];
     if ($countSuspect == 0) {
     //registra los datos de la victima en la tabla victim
     $QuerySuspect="INSERT INTO suspects (nombre, cedula, telefono, email, veces) VALUES ('$nombre_sospechoso', '$cedula_sospechoso', '$telefono_sospechoso', '$email_sospechoso', 1)";
-    echo "se registró datos del sospechoso";
+    echo "<p>Se registró datos del nuevo sospechoso</p>";
     } else{
-    //consulta la cantidad de veces que ha estafado
-    $CheckVecesSuspect="SELECT veces FROM victim where cedula = '$_POST[cedula_sospechoso]' ";
-    //mantiene los datos de la conexion
-    $resultVecesSuspect = $conn-> query($CheckVecesSuspect);
+    //consulta la cantidad de veces que ha estafado ese numero de telefono
+    $CheckVecesSuspect="SELECT veces FROM suspects where telefono = '$_POST[telefono_sospechoso]' ";
+    //guarda el resultado de la consulta
+    $ResultSuspect = mysqli_query($conn,$CheckVecesSuspect);
+    //valor de la fila
+    $RowSuspect= mysqli_fetch_assoc($ResultSuspect);
+    //contabiliza y muestra un mensaje acorde a la cantidad de veces que ha estafado antes ese telefono
+    if ($RowSuspect['veces']>1) {
+      echo "<script type='text/javascript'>alert('$mensaje_telefono $CheckVecesSuspect $Veces')</script>";
+    } else{
+      echo "<script type='text/javascript'>alert('$mensaje_telefono')</script>";
+    }
     //suma una vez a las veces que ha sido estafado
-    $vecesSuspect=$CheckVecesSuspect + 1;
+    $vecesSuspect=$RowSuspect['veces'] + 1;
     //actualiza el campo $veces con un caso más
     $QuerySuspect= "UPDATE suspects SET veces='$vecesSuspect' WHERE telefono='$_POST[telefono_sospechoso]'";
-    echo "se actualizó las veces del mismo sospechoso";
+    echo "<p>Actualizada la cantidad de veces que ha estafado el sospechoso, debido a que es reincidente</p>";
   }
+  //Registro de una tabla de denuncias
+  
   //Comprobación de las operaciones con la base de datos
     if (mysqli_query($conn, $QueryVictim)) {
     echo "<h3>Se registraron correctamente los datos de la victima.</h3>";
     } else {
-        echo "Error: " . $QueryVictim . "<br>" . mysqli_error($conn);
+        echo "Error en datos de la victima: " . $QueryVictim . "<br>" . mysqli_error($conn);
     }
     if (mysqli_query($conn, $QueryAccounts)) {
         echo "<h3>Se registraron correctamente los datos de la cuenta.</h3>";
         } else {
-            echo "Error: " . $QueryAccounts . "<br>" . mysqli_error($conn);
+            echo "Error en datos de cuenta: " . $QueryAccounts . "<br>" . mysqli_error($conn);
         }
     if (mysqli_query($conn, $QuerySuspect)) {
         echo "<h3>Se registraron correctamente los datos del sospechoso.</h3>";
         } else {
-            echo "Error: " . $QuerySuspect . "<br>" . mysqli_error($conn);
+            echo "Error en datos de sospechoso: " . $QuerySuspect . "<br>" . mysqli_error($conn);
         }
   header ("refresh:10;url=../denuncia.php");
-  echo "se redireccionará en 10 segundos";
-    //cerrar conexión
-    mysqli_close($conn);
+  echo "<p>En 10 segundos será regresado al sistema de registro de denuncias</p>";
+  //cerrar conexión
+  mysqli_close($conn);
 ?>

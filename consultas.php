@@ -20,10 +20,26 @@ if($_SESSION['loggedin']=="")
     <header>
         <nav>
             <ul>
-                <a href="admin.html"><li>MENÚ</li></a>
+                <a href="admin.html"><li>Menú</li></a>
                 <a href="modules/logout.php"><li>Salir</li></a>
             </ul>
         </nav>
     </header>
+    <!-- formulario para numero de telefono -->
+    <p>Búsqueda por teléfono de sospechoso</p>
+    <form action="modules/query-phone.php" method="POST">
+    <label for="telefono_sospechoso">Teléfono: </label>
+    <input type="tel" name="telefono_sospechoso" id="telefono_sospechoso" maxlength="11" required>
+    <input type="submit" value="Buscar">
+    </form>
+    <!-- formulario para numero de cuenta -->
+    <p>Búsqueda por número de cuenta</p>
+    <form action="modules/query-account.php" method="post">
+    <label for="cuenta_sospechoso">Cuenta: </label>
+    <input type="text" name="cuenta_sospechoso" id="cuenta_sospechoso">
+    <input type="submit" value="Buscar">
+    </form>
+
+
 </body>
 </html>
