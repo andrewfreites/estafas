@@ -6,6 +6,7 @@ if(isset($_SESSION['start'])){
     if($duracion>$inactivo){
         session_unset();
         session_destroy;
+        echo "la sesión ha caducado";
         header ("refresh:10;url= index.html");
     }
 } else{

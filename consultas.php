@@ -20,11 +20,16 @@ if($_SESSION['loggedin']=="")
     <header>
         <nav>
             <ul>
-                <a href="admin.html"><li>Menú</li></a>
+                <a href="admin.php"><li>Menú</li></a>
                 <a href="modules/logout.php"><li>Salir</li></a>
             </ul>
         </nav>
     </header>
+    <!-- Consulta general -->
+    <p>Consulta general de cuentas:</p>
+    <form action="modules/query-all-accounts.php" method="POST">
+    <input type="submit" value="Consultar">
+    </form>
     <!-- formulario para numero de telefono -->
     <p>Búsqueda por teléfono de sospechoso</p>
     <form action="modules/query-phone.php" method="POST">
@@ -34,9 +39,9 @@ if($_SESSION['loggedin']=="")
     </form>
     <!-- formulario para numero de cuenta -->
     <p>Búsqueda por número de cuenta</p>
-    <form action="modules/query-account.php" method="post">
+    <form action="modules/query-account.php" method="POST">
     <label for="cuenta_sospechoso">Cuenta: </label>
-    <input type="text" name="cuenta_sospechoso" id="cuenta_sospechoso">
+    <input type="text" name="cuenta_sospechoso" id="cuenta_sospechoso" maxlength="20">
     <input type="submit" value="Buscar">
     </form>
 

@@ -14,42 +14,39 @@ include 'conexion.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Consulta de cuentas</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <title>Consulta General de Cuentas</title>
 </head>
 <body>
 <?php
-//declaración de variables obtenidas mediante POST
-$cuenta_sospechoso=$_POST['cuenta_sospechoso'];
-
 if (mysqli_connect_errno()) {
     printf("Falló la conexión: %s\n", mysqli_connect_error());
     exit();
 }
 //consulta a la tabla de cuentas
-$consulta= "SELECT * FROM accounts WHERE numero='$cuenta_sospechoso' ORDER by casos DESC";
-echo "<table>";
-echo    "<tr>";
-echo    "<th>Banco: </th>";
-echo    "<th>Número: </th>";
-echo    "<th>Casos:</th>";
-echo    "</tr>";
+$consulta= "SELECT * FROM accounts ORDER by casos DESC";
 if ($resultado = mysqli_query($conn, $consulta)) {
+    echo "<table>";
+    echo    "<tr>";
+    echo    "<th>Banco: </th>";
+    echo    "<th>Número: </th>";
+    echo    "<th>Casos:</th>";
+    echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
     echo    "<tr>";
-    echo    "<th>$fila[1]</th>";
-    echo    "<th>$fila[2]</th>";
-    echo    "<th>$fila[3]</th>";
+    echo    "<td>$fila[1]</td>";
+    echo    "<td>$fila[2]</td>";
+    echo    "<td>$fila[3]</td>";
     echo    "</tr>";
-    echo "</table>";
     }
-
+    echo    "</table>";
     /* liberar el conjunto de resultados */
     mysqli_free_result($resultado);
 }
 /* cerrar la conexión */
 mysqli_close($conn);
 ?>
-<a href="../consultas.php">Regresar a consultas</a>
+<p><a href="../consultas.php">Regresar a consultas</a></p>
 </body>
 </html>

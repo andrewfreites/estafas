@@ -114,7 +114,7 @@ $Veces=" veces";
     echo "<p>Se registró datos del nuevo sospechoso</p>";
     } else{
     //consulta la cantidad de veces que ha estafado ese numero de telefono
-    $CheckVecesSuspect="SELECT veces FROM suspects where telefono = '$_POST[telefono_sospechoso]' ";
+    $CheckVecesSuspect="SELECT veces FROM suspects where telefono = '$telefono_sospechoso' ";
     //guarda el resultado de la consulta
     $ResultSuspect = mysqli_query($conn,$CheckVecesSuspect);
     //valor de la fila
