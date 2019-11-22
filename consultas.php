@@ -25,11 +25,29 @@ if($_SESSION['loggedin']=="")
             </ul>
         </nav>
     </header>
-    <!-- Consulta general -->
-    <p>Consulta general de cuentas:</p>
+    <p><h2>Consultas generales:</h2></p>
+    <table class="table">
+        <tr>
+            <th> Todas las cuentas </th>
+            <th> Todos los teléfonos </th>
+            <th> Todas las denuncias </th>
+        </tr>
+        <tr>
+    <!-- Consulta general cuentas -->
     <form action="modules/query-all-accounts.php" method="POST">
-    <input type="submit" value="Consultar">
+    <td><input type="submit" value="Consultar"></td>
     </form>
+    <!-- Consulta general teléfonos -->
+    <form action="modules/query-all-phones.php" method="POST">
+    <td><input type="submit" value="Consultar"></td>
+    </form>
+    <!-- Consulta general de denuncias -->
+    <form action="modules/query-complaints.php" method="post">
+    <td><input type="submit" value="Consultar"></td>
+    </form>
+    </tr>
+    </table>
+    <h2>Consultas detalladas</h2>
     <!-- formulario para numero de telefono -->
     <p>Búsqueda por teléfono de sospechoso</p>
     <form action="modules/query-phone.php" method="POST">

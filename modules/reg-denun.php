@@ -27,6 +27,7 @@ $mensaje_victima="Esta persona ha sido estafada antes ";
 $mensaje_cuenta="Esta cuenta ha estafado antes ";
 $mensaje_telefono="Este numero de teléfono ha estafado antes ";
 $Veces=" veces";
+$descripcion_denuncia=$_POST['descripcion_denuncia'];
 
 //REGISTRO DE DATOS DE VICTIMA
 
@@ -132,7 +133,7 @@ $Veces=" veces";
     echo "<p>Actualizada la cantidad de veces que ha estafado el sospechoso, debido a que es reincidente</p>";
   }
   //Registro de una tabla de denuncias
-  
+  $denuncia="INSERT INTO complaints (cedula,banco,numero,telefono,descripcion, fecha) VALUES ('$cedula_victima','$banco_sospechoso','$numero_sospechoso','$telefono_sospechoso','$descripcion_denuncia',''$fecha)";
   //Comprobación de las operaciones con la base de datos
     if (mysqli_query($conn, $QueryVictim)) {
     echo "<h3>Se registraron correctamente los datos de la victima.</h3>";

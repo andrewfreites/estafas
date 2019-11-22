@@ -15,7 +15,7 @@ include 'conexion.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
-    <title>Consulta General de Cuentas</title>
+    <title>Consulta General de Denuncias</title>
 </head>
 <body>
 <?php
@@ -24,7 +24,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 //consulta a la tabla de cuentas
-$consulta= "SELECT * FROM accounts ORDER by casos DESC";
+$consulta= "SELECT * FROM complaints ORDER by fecha DESC";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
@@ -33,9 +33,11 @@ if($count>0){
 if ($resultado = mysqli_query($conn, $consulta)) {
     echo "<table>";
     echo    "<tr>";
-    echo    "<th>Banco: </th>";
-    echo    "<th>Número: </th>";
-    echo    "<th>Casos:</th>";
+    echo    "<th>Victima:</th>";
+    echo    "<th>Banco:</th>";
+    echo    "<th>Numero de cuenta:</th>";
+    echo    "<th>Teléfono:</th>";
+    echo    "<th>Fecha:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
@@ -43,16 +45,18 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<td>$fila[1]</td>";
     echo    "<td>$fila[2]</td>";
     echo    "<td>$fila[3]</td>";
+    echo    "<td>$fila[4]</td>";
+    echo    "<td>$fila[5]</td>";
     echo    "</tr>";
     }
     echo    "</table>";
     /* liberar el conjunto de resultados */
     mysqli_free_result($resultado);
-} else{
-    echo "No existen cuentas registradas";
+}
+}else{
+    echo "No existen denuncias registradas";
     header ("refresh:10;url=../consultas.php");
     echo "<p>En 10 segundos será regresado al sistema de consultas</p>";
-}
 }
 /* cerrar la conexión */
 mysqli_close($conn);
