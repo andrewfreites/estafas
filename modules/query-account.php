@@ -27,29 +27,36 @@ if (mysqli_connect_errno()) {
 }
 //consulta a la tabla de cuentas
 $consulta= "SELECT * FROM accounts WHERE numero='$cuenta_sospechoso' ORDER by casos DESC";
-echo "<table>";
-echo    "<tr>";
-echo    "<th>Banco: </th>";
-echo    "<th>Número: </th>";
-echo    "<th>Casos:</th>";
-echo    "</tr>";
+//guarda la consulta
+$resultado = mysqli_query($conn, $consulta);
+// Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
+$count = mysqli_num_rows($resultado);
+if($count>0){
 if ($resultado = mysqli_query($conn, $consulta)) {
+    echo "<table>";
+    echo    "<tr>";
+    echo    "<th>Banco: </th>";
+    echo    "<th>Número: </th>";
+    echo    "<th>Casos:</th>";
+    echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
     echo    "<tr>";
-    echo    "<th>$fila[1]</th>";
-    echo    "<th>$fila[2]</th>";
-    echo    "<th>$fila[3]</th>";
+    echo    "<td>$fila[1]</td>";
+    echo    "<td>$fila[2]</td>";
+    echo    "<td>$fila[3]</td>";
     echo    "</tr>";
-    echo "</table>";
     }
-
+    echo    "</table>";
     /* liberar el conjunto de resultados */
     mysqli_free_result($resultado);
+}
+} else {
+    echo "<p>aqui no está esa cuenta llave</p>";
 }
 /* cerrar la conexión */
 mysqli_close($conn);
 ?>
-<a href="../consultas.php">Regresar a consultas</a>
+<p><a href="../consultas.php">Regresar a consultas</a></p>
 </body>
 </html>
