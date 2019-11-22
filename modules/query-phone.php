@@ -52,9 +52,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     mysqli_free_result($resultado);
 }
 } else {
-    echo "No existen registros de ese número telefónico";
-    header ("refresh:10;url=../consultas.php");
-    echo "<p>En 10 segundos será regresado al sistema de consultas</p>";
+    echo "No existen registros con el número telefónico: ".'$telefono_sospechoso';
 }
 /* cerrar la conexión */
 mysqli_close($conn);

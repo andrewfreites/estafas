@@ -7,18 +7,6 @@ if($_SESSION['loggedin']=="")
  exit; 
 }
 include 'conexion.php';
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
-    <title>Consulta General de Denuncias</title>
-</head>
-<body>
-<?php
 if (mysqli_connect_errno()) {
     printf("Falló la conexión: %s\n", mysqli_connect_error());
     exit();
@@ -55,12 +43,8 @@ if ($resultado = mysqli_query($conn, $consulta)) {
 }
 }else{
     echo "No existen denuncias registradas";
-    header ("refresh:10;url=../consultas.php");
-    echo "<p>En 10 segundos será regresado al sistema de consultas</p>";
 }
 /* cerrar la conexión */
 mysqli_close($conn);
 ?>
 <p><a href="../consultas.php">Regresar a consultas</a></p>
-</body>
-</html>

@@ -52,7 +52,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     mysqli_free_result($resultado);
 }
 } else {
-    echo "<p>aqui no está esa cuenta llave</p>";
+    echo "<p>No existen registros con el número de cuenta: </p>".'$cuenta_sospechoso';
 }
 /* cerrar la conexión */
 mysqli_close($conn);

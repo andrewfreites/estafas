@@ -54,9 +54,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     mysqli_free_result($resultado);
 }
 }else{
-    echo "No existen teléfonos registrados";
-    header ("refresh:10;url=../consultas.php");
-    echo "<p>En 10 segundos será regresado al sistema de consultas</p>";
+    echo "No existen teléfonos registrados en la base de datos";
 }
 /* cerrar la conexión */
 mysqli_close($conn);
