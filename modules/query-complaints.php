@@ -11,6 +11,18 @@ if (mysqli_connect_errno()) {
     printf("Falló la conexión: %s\n", mysqli_connect_error());
     exit();
 }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <title>Listado de denuncias</title>
+</head>
+<body>
+<?php
 //consulta a la tabla de cuentas
 $consulta= "SELECT * FROM complaints ORDER by fecha DESC";
 //guarda la consulta
@@ -47,4 +59,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
 /* cerrar la conexión */
 mysqli_close($conn);
 ?>
+
 <p><a href="../consultas.php">Regresar a consultas</a></p>
+</body>
+</html>

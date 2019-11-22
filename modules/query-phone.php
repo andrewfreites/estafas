@@ -11,9 +11,10 @@ include 'conexion.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="../css/styles.css">
     <title>Consulta de cuentas</title>
 </head>
 <body>
@@ -26,7 +27,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 //consulta a la tabla de cuentas
-$consulta= "SELECT * FROM suspects WHERE telefono='$telefono_sospechoso' ORDER by casos DESC";
+$consulta= "SELECT * FROM suspects WHERE telefono='$telefono_sospechoso' ORDER by veces DESC";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
@@ -52,7 +53,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     mysqli_free_result($resultado);
 }
 } else {
-    echo "No existen registros con el número telefónico: ".'$telefono_sospechoso';
+    echo "No existen registros con el número telefónico: ".$telefono_sospechoso;
 }
 /* cerrar la conexión */
 mysqli_close($conn);

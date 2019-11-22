@@ -3,5 +3,7 @@ table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
   text-align: center;
-}.wrapper {background-color:oldlace }
+}
+.wrapper {background-color:oldlace }
 .titulo {text-align: center}
+body{background-color:oldlace }

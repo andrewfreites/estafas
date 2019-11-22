@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="../css/styles.css">
+	<title>Registro de usuarios</title>
+</head>
+<body>
 <?php
   include 'conexion.php';
     
@@ -40,3 +49,5 @@
 	}	
     mysqli_close($conn);
 ?>
+</body>
+</html>

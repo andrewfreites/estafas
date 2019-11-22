@@ -28,9 +28,9 @@ if($_SESSION['loggedin']=="")
     <p><h2>Consultas generales:</h2></p>
     <table class="table">
         <tr>
-            <th> Todas las cuentas </th>
-            <th> Todos los teléfonos </th>
-            <th> Todas las denuncias </th>
+            <th> Cuentas </th>
+            <th> Teléfonos </th>
+            <th> Denuncias </th>
         </tr>
         <tr>
     <!-- Consulta general cuentas -->
