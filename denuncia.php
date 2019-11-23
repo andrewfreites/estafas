@@ -33,7 +33,7 @@ if($_SESSION['loggedin']=="")
         <form action="modules/reg-denun.php" method="POST">
             <h2>Datos de la víctima:</h2>
             <label for="cedula_victima">Cédula de identidad: </label> <!-- every label allows point to every input -->
-            <input type="text" name="cedula_victima" id="cedula_victima" size="20" maxlength="9" placeholder="sin puntos ni separadores" required>
+            <input type="text" name="cedula_victima" id="cedula_victima" size="20" maxlength="8" placeholder="sin puntos ni separadores" required>
             <label for="nombre_victima">Nombre: </label>
             <input type="text" name="nombre_victima" id="nombre_victima" size="20" required>
             <label for="telefono_victima">Teléfono: </label>
@@ -72,7 +72,7 @@ if($_SESSION['loggedin']=="")
             <br>
             <h2>Datos del sospechoso:</h2>
             <label for="cedula_sospechoso">Cédula de identidad: </label>
-            <input type="text" name="cedula_sospechoso" id="cedula_sospechoso" size="20" maxlength="9" placeholder="sin puntos ni separadores">
+            <input type="text" name="cedula_sospechoso" id="cedula_sospechoso" size="20" maxlength="8" placeholder="sin puntos ni separadores">
             <label for="nombre_sospechoso">Nombre: </label>
             <input type="text" name="nombre_sospechoso" id="nombre_sospechoso" size="20">
             <label for="telefono_sospechoso">Teléfono: </label>

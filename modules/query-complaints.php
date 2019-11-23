@@ -37,6 +37,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<th>Banco:</th>";
     echo    "<th>Numero de cuenta:</th>";
     echo    "<th>Teléfono:</th>";
+    echo    "<th>Decripción:</th>";
     echo    "<th>Fecha:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
@@ -47,6 +48,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<td>$fila[3]</td>";
     echo    "<td>$fila[4]</td>";
     echo    "<td>$fila[5]</td>";
+    echo    "<td>$fila[6]</td>";
     echo    "</tr>";
     }
     echo    "</table>";

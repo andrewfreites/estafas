@@ -27,7 +27,10 @@ $mensaje_victima="Esta persona ha sido estafada antes ";
 $mensaje_cuenta="Esta cuenta ha estafado antes ";
 $mensaje_telefono="Este numero de teléfono ha estafado antes ";
 $Veces=" veces";
-$descripcion_denuncia=$_POST['descripcion_denuncia'];
+
+
+//Registro de una tabla de denuncias
+$QueryComplaint="INSERT INTO complaints (victima,banco,cuenta,telefono,descripcion,fecha) VALUES ('$cedula_victima','$banco_sospechoso','$numero_sospechoso','$telefono_sospechoso','$descripcion_denuncia','$fecha')";
 
 //REGISTRO DE DATOS DE VICTIMA
 
@@ -132,8 +135,6 @@ $descripcion_denuncia=$_POST['descripcion_denuncia'];
     $QuerySuspect= "UPDATE suspects SET veces='$vecesSuspect' WHERE telefono='$_POST[telefono_sospechoso]'";
     echo "<p>Actualizada la cantidad de veces que ha estafado el sospechoso, debido a que es reincidente</p>";
   }
-  //Registro de una tabla de denuncias
-  $denuncia="INSERT INTO complaints (cedula,banco,numero,telefono,descripcion, fecha) VALUES ('$cedula_victima','$banco_sospechoso','$numero_sospechoso','$telefono_sospechoso','$descripcion_denuncia',''$fecha)";
   //Comprobación de las operaciones con la base de datos
     if (mysqli_query($conn, $QueryVictim)) {
     echo "<h3>Se registraron correctamente los datos de la victima.</h3>";
@@ -150,6 +151,11 @@ $descripcion_denuncia=$_POST['descripcion_denuncia'];
         } else {
             echo "Error en datos de sospechoso: " . $QuerySuspect . "<br>" . mysqli_error($conn);
         }
+    if (mysqli_query($conn, $QueryComplaint)) {
+      echo "<h3>Se registraron correctamente los datos de la denuncia.</h3>";
+      } else {
+          echo "Error en datos de la denuncia: " . $QueryComplaint . "<br>" . mysqli_error($conn);
+      }
   header ("refresh:10;url=../denuncia.php");
   echo "<p>En 10 segundos será regresado al sistema de registro de denuncias</p>";
   //cerrar conexión
