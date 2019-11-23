@@ -157,7 +157,7 @@ $QueryComplaint="INSERT INTO complaints (victima,banco,cuenta,telefono,descripci
           echo "Error en datos de la denuncia: " . $QueryComplaint . "<br>" . mysqli_error($conn);
       }
   header ("refresh:10;url=../denuncia.php");
-  echo "<p>En 10 segundos será regresado al sistema de registro de denuncias</p>";
+  echo "<p><h2>En 10 segundos será regresado al sistema de registro de denuncias</h2></p>";
   //cerrar conexión
   mysqli_close($conn);
 ?>
