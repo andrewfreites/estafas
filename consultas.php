@@ -26,7 +26,7 @@ if($_SESSION['loggedin']=="")
         </nav>
     </header>
     <p><h2>Consultas generales:</h2></p>
-    <table class="table">
+    <table width="300px">
         <tr>
             <th> Cuentas </th>
             <th> Teléfonos </th>
@@ -49,20 +49,24 @@ if($_SESSION['loggedin']=="")
     </table>
     <h2>Consultas detalladas</h2>
     <!-- formulario para numero de telefono -->
-    <p>Búsqueda por teléfono de sospechoso</p>
+    <table>
+    <tr><th><p>Búsqueda por teléfono de sospechoso</p></th></tr>
     <form action="modules/query-phone.php" method="POST">
-    <label for="telefono_sospechoso">Teléfono: </label>
+    <tr><td><label for="telefono_sospechoso">Teléfono: </label>
     <input type="tel" name="telefono_sospechoso" id="telefono_sospechoso" maxlength="11" required>
-    <input type="submit" value="Buscar">
+    <input type="submit" value="Buscar"></td>
     </form>
+    </tr>
+    </table>
     <!-- formulario para numero de cuenta -->
-    <p>Búsqueda por número de cuenta</p>
+    <table>
+    <tr><th><p>Búsqueda por número de cuenta</p></th></tr>
     <form action="modules/query-account.php" method="POST">
-    <label for="cuenta_sospechoso">Cuenta: </label>
+    <tr><td><label for="cuenta_sospechoso">Cuenta: </label>
     <input type="text" name="cuenta_sospechoso" id="cuenta_sospechoso" maxlength="20">
-    <input type="submit" value="Buscar">
+    <input type="submit" value="Buscar"></td>
     </form>
-
-
+    </tr>
+    </table>
 </body>
 </html>
