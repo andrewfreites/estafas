@@ -9,6 +9,7 @@ if($_SESSION['loggedin']=="")
 
 include 'conexion.php';
 //Declaración de variables tomadas por post desde denuncia.php
+$expediente=$_POST['expedient'];
 $cedula_sospechoso=$_POST['cedula_sospechoso'];
 $array_banco_sospechoso=$_REQUEST['banco_sospechoso'];
 $array_numero_sospechoso=$_REQUEST['cuenta_sospechoso'];
@@ -33,7 +34,7 @@ $Veces=" veces";
 //REGISTRO DE DATOS DE VICTIMA
 
   // consulta que revisa si la victima existe en la base de datos
-  $CheckVictim = "SELECT * FROM victim WHERE cedula = '$_POST[cedula_sospechoso]' ";
+  $CheckVictim = "SELECT * FROM victim WHERE cedula = '$_POST[cedula_victima]' ";
 
   // Variable $result mantiene los datos de conexion
   $resultVictim = $conn-> query($CheckVictim);
@@ -44,17 +45,16 @@ $Veces=" veces";
   // Si el resultado es 0 entonces la victima no existe en la base de datos y se procede a registrar 
   if ($countVictim == 0) {
     //registra los datos de la victima en la tabla victim
-    $QueryVictim="INSERT INTO victim (nombre, cedula, telefono, email, veces) VALUES ('$nombre_victima', '$cedula_victima', '$telefono_victima', '$email_victima', 1)";
-    echo "<p>Se registró una nueva victima</p>";
+    $QueryVictim="INSERT INTO victim (expedient, nombre, cedula, telefono, email, veces) VALUES ('$expediente', '$nombre_victima', '$cedula_victima', '$telefono_victima', '$email_victima', 1)";
     //Comprobación de las operaciones con la base de datos
     if (mysqli_query($conn, $QueryVictim)) {
       echo "<h3>Se registraron correctamente los datos de la victima.</h3>";
       } else {
           echo "Error en datos de la victima: " . $QueryVictim . "<br>" . mysqli_error($conn);
       }
-  } else{ //si no solo se actualiza el numero de veces que ha sido estafada
+  } else{ //si no, solo se actualiza el numero de veces que ha sido estafada
     //consulta la cantidad de veces que ha sido estafado
-    $CheckVeces="SELECT veces FROM victim where cedula = '$_POST[cedula_sospechoso]' ";
+    $CheckVeces="SELECT veces FROM victim where cedula = '$_POST[cedula_victima]' ";
     //mantiene los datos de la conexion
     $ResultVeces= mysqli_query($conn,$CheckVeces);
     //Guarda el valor de veces la fila de la tabla victim
@@ -109,15 +109,14 @@ for($i=0;$i<$size_banks;$i++){
         }
         $casos=$RowAccount['casos'] + 1; //suma una denuncia al conteo de casos de la cuenta
         $QueryAccounts= "UPDATE accounts SET casos='$casos' WHERE numero= '$array_numero_sospechoso[$i]'";
-        echo "<p>Se actualizó el numero de casos de estafa asociados a la cuenta</p>";
+        echo "<h2>Se actualizó el numero de casos de estafa asociados a la cuenta, ya que es reincidente</h2>";
         if (mysqli_query($conn, $QueryAccounts)) {
           echo "<h3>Se registraron correctamente los datos de la cuenta.</h3>";
           } else {
               echo "Error en datos de cuenta: " . $QueryAccounts . "<br>" . mysqli_error($conn);
           }
     } else{
-        $QueryAccounts= "INSERT INTO accounts (banco, numero, casos, sospechoso) VALUES ('$array_banco_sospechoso[$i]', '$array_numero_sospechoso[$i]', 1,'$array_telefonos[$i]')";
-        echo "<p>Se registro una nueva cuenta bancaria estafadora en la base datos</p>";
+        $QueryAccounts= "INSERT INTO accounts (expedient, banco, numero, casos, sospechoso) VALUES ('$expediente','$array_banco_sospechoso[$i]', '$array_numero_sospechoso[$i]', 1,'$array_telefonos[$i]')";
         if (mysqli_query($conn, $QueryAccounts)) {
           echo "<h3>Se registraron correctamente los datos de la cuenta.</h3>";
           } else {
@@ -136,8 +135,7 @@ for($i=0;$i<$size_phones;$i++){
     // Si el resultado es 0 entonces el sospechoso no existe en la base de datos y se procede a registrar 
     if ($countSuspect == 0) {
     //registra los datos de la victima en la tabla victim
-    $QuerySuspect="INSERT INTO suspects (nombre, cedula, telefono, email, veces) VALUES ('$nombre_sospechoso', '$cedula_sospechoso', '$array_telefonos[$i]', '$email_sospechoso', 1)";
-    echo "<p>Se registró datos del nuevo sospechoso</p>";
+    $QuerySuspect="INSERT INTO suspects (expedient, nombre, cedula, telefono, email, veces) VALUES ('$expediente', '$nombre_sospechoso', '$cedula_sospechoso', '$array_telefonos[$i]', '$email_sospechoso', 1)";
     if (mysqli_query($conn, $QuerySuspect)) {
       echo "<h3>Se registraron correctamente los datos del sospechoso.</h3>";
       } else {
@@ -160,7 +158,7 @@ for($i=0;$i<$size_phones;$i++){
     $vecesSuspect=$RowSuspect['veces'] + 1;
     //actualiza el campo $veces con un caso más
     $QuerySuspect= "UPDATE suspects SET veces='$vecesSuspect' WHERE telefono='$array_telefonos[$i]'";
-    echo "<p>Actualizada la cantidad de veces que ha estafado el sospechoso, debido a que es reincidente</p>";
+    echo "<h2>Actualizada la cantidad de veces que ha estafado el sospechoso, debido a que es reincidente</h2>";
     if (mysqli_query($conn, $QuerySuspect)) {
       echo "<h3>Se registraron correctamente los datos del sospechoso.</h3>";
       } else {
@@ -168,34 +166,18 @@ for($i=0;$i<$size_phones;$i++){
       }
   }
 }
-  /**Comprobación de las operaciones con la base de datos
-    if (mysqli_query($conn, $QueryVictim)) {
-    echo "<h3>Se registraron correctamente los datos de la victima.</h3>";
-    } else {
-        echo "Error en datos de la victima: " . $QueryVictim . "<br>" . mysqli_error($conn);
-    }
-    if (mysqli_query($conn, $QueryAccounts)) {
-        echo "<h3>Se registraron correctamente los datos de la cuenta.</h3>";
-        } else {
-            echo "Error en datos de cuenta: " . $QueryAccounts . "<br>" . mysqli_error($conn);
-        }
-    if (mysqli_query($conn, $QuerySuspect)) {
-        echo "<h3>Se registraron correctamente los datos del sospechoso.</h3>";
-        } else {
-            echo "Error en datos de sospechoso: " . $QuerySuspect . "<br>" . mysqli_error($conn);
-        }
-    if (mysqli_query($conn, $QueryComplaint)) {
-      echo "<h3>Se registraron correctamente los datos de la denuncia.</h3>";
-      } else {
-          echo "Error en datos de la denuncia: " . $QueryComplaint . "<br>" . mysqli_error($conn);
-      }**/
+$QueryComplaint="INSERT INTO complaints (expedient, detail, fecha) VALUES ('$expediente', '$descripcion_denuncia', '$fecha')";
+if (mysqli_query($conn, $QueryComplaint)) {
+  echo "<h3>Se registraron correctamente los datos del expediente.</h3>";
+  } else {
+      echo "Error en datos del expediente: " . $QueryComplaint . "<br>" . mysqli_error($conn);
+  }
 //header ("refresh:10;url=../denuncia.php");
-echo "<p><h2>En 10 segundos será regresado al sistema de registro de denuncias</h2></p>";
   //cerrar conexión
   mysqli_close($conn);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -203,6 +185,6 @@ echo "<p><h2>En 10 segundos será regresado al sistema de registro de denuncias<
   <title>Procesando registro de denuncia</title>
 </head>
 <body>
-<a href="../denuncia.php">regresar a denuncias</a>
+<a href="../denuncia.php">Regresar a tomar una nueva denuncia</a>
 </body>
 </html>

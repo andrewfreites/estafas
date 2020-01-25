@@ -58,7 +58,11 @@ if($_SESSION['loggedin']=="")
         <h3>Datos de la víctima:</h3>
         <table width="350px">
         <tr>
-            <th><label for="cedula_victima">Cédula de identidad: </label></th> <!-- every label allows point to every input -->
+            <th><label for="expedient">Expediente: </label></th>
+            <td><input type="text" name="expedient" id="expedient" pattern="^[A-Za-z]-\d{2}-\d{4}-\d{5}" title="K-19-1234-12345" maxlength="15" size="18" placeholder="K-12-1234-12345" required></td>
+        </tr>            
+        <tr>
+            <th><label for="cedula_victima">Cédula de identidad: </label></th>
             <td><input type="text" name="cedula_victima" id="cedula_victima" size="18" maxlength="8" placeholder="sin puntos ni separadores" required></td>
         </tr>
         <tr>
@@ -132,7 +136,7 @@ if($_SESSION['loggedin']=="")
             <input type="button" class= "add_phone" value="+" onClick="javascript:void(0);" title="Añadir campo" style="width:25px"></td>
         </tr>
         </table>
-<!-- Script para número de teléfono -->
+<!-- Script para cuenta bancaria -->
 <script type="text/javascript">
     $(document).ready(function(){
     var maxField = 5; //Input fields increment limitation
@@ -145,7 +149,7 @@ if($_SESSION['loggedin']=="")
             x++; //Increment field counter
             $(wrapper).append(fieldHTML); // Add field html
         } else{
-            alert('Ha alzando el máximo permitido de números telefónicos -5- por cada denuncia realizada')
+            alert('Ha alzando el máximo permitido de cuentas bancarias -5- por cada denuncia realizada')
         }
     });
     $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
@@ -187,7 +191,7 @@ if($_SESSION['loggedin']=="")
         </tr>
         </table>
         <h3>Descripción del hecho:</h3>
-        <textarea name="descripcion_denuncia" id="descripcion_denuncia" cols="47" rows="10" placeholder="Descripción detallada de lo ocurrido"></textarea>
+        <textarea name="descripcion_denuncia" id="descripcion_denuncia" cols="47" rows="10" placeholder="Descripción detallada de lo ocurrido" maxlength="500"></textarea>
         <p><input type="submit" value="Registrar Denuncia"> <!-- register complaint -->
         <input type="reset" value="Borrar todo"></p> <!-- reset form button -->
     </form>

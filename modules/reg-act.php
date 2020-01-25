@@ -16,10 +16,10 @@
 	// Variable $result mantiene los datos de conexion
 	$result = $conn-> query($checkEmail);
 
-	// Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
+	// cuenta el numero de filas obtenidas
 	$count = mysqli_num_rows($result);
 
-    // si el resultado es 1 entonces el email existe, y tomando esta condición nunca superará el número 1 al tan solo crear la primera cuenta
+    // si el resultado es 1 entonces el email existe
     // se muestra un mensaje pidiendo iniciar sesión en la página de login
 	if ($count == 1) {
 	echo "<p>Ese email ya existe en la base de datos.</p>

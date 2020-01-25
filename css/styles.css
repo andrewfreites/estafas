@@ -1,6 +1,6 @@
 /* general */
 table, th, td {
-  border:0px;
+  border:1px;
   text-align: center;
 }
 .wrapper {background-color:oldlace }

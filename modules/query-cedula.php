@@ -9,22 +9,25 @@ if($_SESSION['loggedin']=="")
 include 'conexion.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
-    <title>Consulta General de Cuentas</title>
+    <title>Consulta de cédula sospechoso</title>
 </head>
 <body>
 <?php
+//declaración de variables obtenidas mediante POST
+$cedula=$_POST['cedula'];
+
 if (mysqli_connect_errno()) {
     printf("Falló la conexión: %s\n", mysqli_connect_error());
     exit();
 }
 //consulta a la tabla de cuentas
-$consulta= "SELECT * FROM accounts ORDER by casos DESC";
+$consulta= "SELECT * FROM suspects WHERE cedula='$cedula' ORDER by veces DESC";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
@@ -33,10 +36,11 @@ if($count>0){
 if ($resultado = mysqli_query($conn, $consulta)) {
     echo "<table>";
     echo    "<tr>";
-    echo    "<th>Expediente:</th>";
-    echo    "<th>Nombre:</th>";
-    echo    "<th>Número:</th>";
-    echo    "<th>Casos:</th>";
+    echo    "<th>Expediente: </th>";
+    echo    "<th>Nombre: </th>";
+    echo    "<th>Cédula:</th>";
+    echo    "<th>Teléfono: </th>";
+    echo    "<th>Veces: </th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
@@ -44,15 +48,16 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<td>$fila[1]</td>";
     echo    "<td>$fila[2]</td>";
     echo    "<td>$fila[3]</td>";
-    echo    "<td>$fila[5]</td>";
+    echo    "<td>$fila[4]</td>";
+    echo    "<td>$fila[6]</td>";
     echo    "</tr>";
     }
     echo    "</table>";
     /* liberar el conjunto de resultados */
     mysqli_free_result($resultado);
 }
-}else{
-    echo "No existen cuentas registrados en la base de datos";
+} else {
+    echo "No existen registros con el número de cédula: ".$cedula;
 }
 /* cerrar la conexión */
 mysqli_close($conn);
