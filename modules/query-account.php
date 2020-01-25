@@ -36,6 +36,7 @@ if($count>0){
 if ($resultado = mysqli_query($conn, $consulta)) {
     echo "<table>";
     echo    "<tr>";
+    echo    "<th>Expediente: </th>";
     echo    "<th>Banco: </th>";
     echo    "<th>Número: </th>";
     echo    "<th>Casos:</th>";
@@ -46,6 +47,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<td>$fila[1]</td>";
     echo    "<td>$fila[2]</td>";
     echo    "<td>$fila[3]</td>";
+    echo    "<td>$fila[5]</td>";
     echo    "</tr>";
     }
     echo    "</table>";
