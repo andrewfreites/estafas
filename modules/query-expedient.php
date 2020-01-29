@@ -27,29 +27,37 @@ if (mysqli_connect_errno()) {
     exit();
 }
 //consulta a la tabla de cuentas
-$consulta= "SELECT complaints.expedient, suspects.nombre, suspects.cedula, suspects.telefono, DATE_FORMAT(complaints.fecha, '%d/%m/%Y') FROM complaints LEFT JOIN suspects ON complaints.expedient=suspects.expedient WHERE complaints.expedient='$expediente' ORDER by complaints.fecha DESC";
+//$consulta= "SELECT complaints.expedient, suspects.nombre, suspects.cedula, suspects.telefono, DATE_FORMAT(complaints.fecha, '%d/%m/%Y') FROM complaints LEFT JOIN suspects ON complaints.expedient=suspects.expedient WHERE complaints.expedient='$expediente' ORDER by complaints.fecha DESC";
+$consulta= "SELECT complaints.expedient, victim.nombre, victim.cedula, suspects.nombre, suspects.cedula, suspects.telefono, accounts.banco, accounts.numero, DATE_FORMAT(complaints.fecha, '%d/%m/%Y') FROM complaints, victim, suspects, accounts WHERE complaints.expedient=victim.expedient AND victim.expedient=suspects.expedient AND suspects.expedient=accounts.expedient AND accounts.expedient='$expediente' ORDER by complaints.fecha DESC";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
 $count = mysqli_num_rows($resultado);
 if($count>0){
 if ($resultado = mysqli_query($conn, $consulta)) {
+    echo "<h3><p>Casos de: <h2>$expediente<h2><p></h3>";
     echo "<table>";
     echo    "<tr>";
-    echo    "<th>Expediente: </th>";
-    echo    "<th>Sospechoso: </th>";
+    echo    "<th>Víctima: </th>";
     echo    "<th>Cédula: </th>";
+    echo    "<th>Sospechoso:</th>";
+    echo    "<th>Cédula:</th>";
     echo    "<th>Teléfono:</th>";
+    echo    "<th>Banco:</th>";
+    echo    "<th>Número:</th>";
     echo    "<th>Fecha:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
     echo    "<tr>";
-    echo    "<td>$fila[0]</td>";
     echo    "<td>$fila[1]</td>";
     echo    "<td>$fila[2]</td>";
     echo    "<td>$fila[3]</td>";
     echo    "<td>$fila[4]</td>";
+    echo    "<td>$fila[5]</td>";
+    echo    "<td>$fila[6]</td>";
+    echo    "<td>$fila[7]</td>";
+    echo    "<td>$fila[8]</td>";
     echo    "</tr>";
     }
     echo    "</table>";

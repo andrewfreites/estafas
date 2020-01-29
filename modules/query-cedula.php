@@ -34,11 +34,11 @@ $resultado = mysqli_query($conn, $consulta);
 $count = mysqli_num_rows($resultado);
 if($count>0){
 if ($resultado = mysqli_query($conn, $consulta)) {
+    echo "<h3>Casos de: <h2>$cedula</h2></h3>";
     echo "<table>";
     echo    "<tr>";
     echo    "<th>Expediente: </th>";
     echo    "<th>Nombre: </th>";
-    echo    "<th>Cédula:</th>";
     echo    "<th>Teléfono: </th>";
     echo    "<th>Veces: </th>";
     echo    "</tr>";
@@ -47,7 +47,6 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<tr>";
     echo    "<td>$fila[1]</td>";
     echo    "<td>$fila[2]</td>";
-    echo    "<td>$fila[3]</td>";
     echo    "<td>$fila[4]</td>";
     echo    "<td>$fila[6]</td>";
     echo    "</tr>";

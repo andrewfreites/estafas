@@ -34,11 +34,13 @@ $resultado = mysqli_query($conn, $consulta);
 $count = mysqli_num_rows($resultado);
 if($count>0){
 if ($resultado = mysqli_query($conn, $consulta)) {
+    echo "<h3><p>Casos de: <h2>$telefono_sospechoso<h2><p></h3>";
     echo "<table>";
     echo    "<tr>";
-    echo    "<th>Banco: </th>";
-    echo    "<th>Número: </th>";
-    echo    "<th>Casos:</th>";
+    echo    "<th>Expediente: </th>";
+    echo    "<th>Nombre: </th>";
+    echo    "<th>Cédula:</th>";
+    echo    "<th>Veces:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
@@ -46,6 +48,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<td>$fila[1]</td>";
     echo    "<td>$fila[2]</td>";
     echo    "<td>$fila[3]</td>";
+    echo    "<td>$fila[6]</td>";
     echo    "</tr>";
     }
     echo    "</table>";
