@@ -17,13 +17,11 @@ $array_telefonos=$_REQUEST['telefono_sospechoso'];
 $size_banks= sizeof($array_banco_sospechoso);
 $size_phones= sizeof($array_telefonos);
 $nombre_sospechoso=$_POST['nombre_sospechoso'];
-$email_sospechoso=$_POST['email_sospechoso'];
 $cedula_victima=$_POST['cedula_victima'];
 $nombre_victima=$_POST['nombre_victima'];
 $banco_victima=$_POST['banco_victima'];
 $numero_victima=$_POST['numero_victima'];
 $telefono_victima=$_POST['telefono_victima'];
-$email_victima=$_POST['email_victima'];
 $fecha=$_POST['fecha'];
 $descripcion_denuncia=$_POST['descripcion_denuncia'];
 $mensaje_victima="Esta persona ha sido estafada antes ";
@@ -45,7 +43,7 @@ $Veces=" veces";
   // Si el resultado es 0 entonces la victima no existe en la base de datos y se procede a registrar 
   if ($countVictim == 0) {
     //registra los datos de la victima en la tabla victim
-    $QueryVictim="INSERT INTO victim (expedient, nombre, cedula, telefono, email, veces) VALUES ('$expediente', '$nombre_victima', '$cedula_victima', '$telefono_victima', '$email_victima', 1)";
+    $QueryVictim="INSERT INTO victim (expedient, nombre, cedula, telefono, veces) VALUES ('$expediente', '$nombre_victima', '$cedula_victima', '$telefono_victima', 1)";
     //Comprobación de las operaciones con la base de datos
     if (mysqli_query($conn, $QueryVictim)) {
       echo "<h3>Se registraron correctamente los datos de la victima.</h3>";
@@ -135,7 +133,7 @@ for($i=0;$i<$size_phones;$i++){
     // Si el resultado es 0 entonces el sospechoso no existe en la base de datos y se procede a registrar 
     if ($countSuspect == 0) {
     //registra los datos de la victima en la tabla victim
-    $QuerySuspect="INSERT INTO suspects (expedient, nombre, cedula, telefono, email, veces) VALUES ('$expediente', '$nombre_sospechoso', '$cedula_sospechoso', '$array_telefonos[$i]', '$email_sospechoso', 1)";
+    $QuerySuspect="INSERT INTO suspects (expedient, nombre, cedula, telefono, veces) VALUES ('$expediente', '$nombre_sospechoso', '$cedula_sospechoso', '$array_telefonos[$i]', 1)";
     if (mysqli_query($conn, $QuerySuspect)) {
       echo "<h3>Se registraron correctamente los datos del sospechoso.</h3>";
       } else {

@@ -72,10 +72,6 @@ if($_SESSION['loggedin']=="")
         <tr>
             <th><label for="telefono_victima">Teléfono: </label></th>
             <td><input type="tel" name="telefono_victima" id="telefono_victima" size="18" maxlength="11" placeholder="ejemplo: 04141234567"></td>
-            </tr>
-        <tr>
-            <th><label for="email_victima">Email: </label></th>
-            <td><input type="email" name="email_victima" id="email_victima" size="18"></td>
         </tr>
         <tr>
             <th><label for="fecha">Fecha de la denuncia: </label></th>
@@ -125,10 +121,6 @@ if($_SESSION['loggedin']=="")
         <tr>
             <th><label for="nombre_sospechoso">Nombre: </label></th>
             <td><input type="text" name="nombre_sospechoso" id="nombre_sospechoso" size="20"></td>
-        </tr>
-        <tr>
-            <th><label for="email_sospechoso">Email: </label></th>
-            <td><input type="email" name="email_sospechoso" id="email_sospechoso" size="20"></td>
         </tr>
         <tr>
             <th><label for="telefono_sospechoso">Teléfono: </label></th>                

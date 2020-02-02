@@ -26,8 +26,7 @@ if (mysqli_connect_errno()) {
     printf("Falló la conexión: %s\n", mysqli_connect_error());
     exit();
 }
-//consulta a la tabla de cuentas
-//$consulta= "SELECT complaints.expedient, suspects.nombre, suspects.cedula, suspects.telefono, DATE_FORMAT(complaints.fecha, '%d/%m/%Y') FROM complaints LEFT JOIN suspects ON complaints.expedient=suspects.expedient WHERE complaints.expedient='$expediente' ORDER by complaints.fecha DESC";
+//cross query
 $consulta= "SELECT complaints.expedient, victim.nombre, victim.cedula, suspects.nombre, suspects.cedula, suspects.telefono, accounts.banco, accounts.numero, DATE_FORMAT(complaints.fecha, '%d/%m/%Y') FROM complaints, victim, suspects, accounts WHERE complaints.expedient=victim.expedient AND victim.expedient=suspects.expedient AND suspects.expedient=accounts.expedient AND accounts.expedient='$expediente' ORDER by complaints.fecha DESC";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
