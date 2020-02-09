@@ -22,6 +22,9 @@ if($_SESSION['loggedin']=="")
     <header>
         <nav>
             <ul>
+            <?php
+            echo "<li>Bienvendio $_SESSION[name]</li>";
+            ?>
                 <a href="modules/logout.php"><li>Salir</li></a>
             </ul>
         </nav>
