@@ -24,7 +24,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 //consulta a la tabla de cuentas
-$consulta= "SELECT * FROM suspects ORDER by veces DESC";
+$consulta= "SELECT * FROM phones ORDER by veces DESC";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
@@ -34,10 +34,9 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo "<table>";
     echo    "<tr>";
     echo    "<th>Expediente:</th>";
-    echo    "<th>Nombre:</th>";
-    echo    "<th>Cédula:</th>";
-    echo    "<th>Teléfono:</th>";
-    echo    "<th>Casos:</th>";
+    echo    "<th>Número:</th>";
+    echo    "<th>Sospechoso:</th>";
+    echo    "<th>Veces:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
@@ -46,7 +45,6 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<td>$fila[2]</td>";
     echo    "<td>$fila[3]</td>";
     echo    "<td>$fila[4]</td>";
-    echo    "<td>$fila[6]</td>";
     echo    "</tr>";
     }
     echo    "</table>";

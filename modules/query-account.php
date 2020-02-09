@@ -27,7 +27,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 //consulta a la tabla de cuentas
-$consulta= "SELECT * FROM accounts WHERE numero='$cuenta_sospechoso' ORDER by casos DESC";
+$consulta= "SELECT * FROM accounts WHERE numero='$cuenta_sospechoso'";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
@@ -39,7 +39,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<th>Expediente: </th>";
     echo    "<th>Banco: </th>";
     echo    "<th>Número: </th>";
-    echo    "<th>Casos:</th>";
+    echo    "<th>Sospechoso:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
@@ -47,7 +47,7 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<td>$fila[1]</td>";
     echo    "<td>$fila[2]</td>";
     echo    "<td>$fila[3]</td>";
-    echo    "<td>$fila[5]</td>";
+    echo    "<td>$fila[4]</td>";
     echo    "</tr>";
     }
     echo    "</table>";

@@ -138,7 +138,7 @@ if ($countPhones == 0){
   $vecesPhoneResult= mysqli_query($conn, $queryVecesPhone);
   $rowPhones= mysqli_fetch_assoc($vecesPhoneResult);
   if ($rowPhones['veces']>1){
-    echo "<script type='text/javascript'>alert('$array_telefonos[i]: $mensaje_telefono $vecesPhone $Veces')</script>";
+    echo "<script type='text/javascript'>alert('$array_telefonos[i]: $mensaje_telefono $queryVecesPhone $Veces')</script>";
   } else{
     echo "<script type='text/javascript'>alert('$array_telefonos[i]: $mensaje_telefono')</script>";
   }

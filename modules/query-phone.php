@@ -27,28 +27,30 @@ if (mysqli_connect_errno()) {
     exit();
 }
 //consulta a la tabla de cuentas
-$consulta= "SELECT * FROM suspects WHERE telefono='$telefono_sospechoso' ORDER by veces DESC";
+$consulta= "SELECT * FROM phones WHERE numero='$telefono_sospechoso'";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
 $count = mysqli_num_rows($resultado);
 if($count>0){
+$veces= "SELECT veces FROM phones WHERE numero='$telefono_sospechoso'";
+$resultVeces= mysqli_query($conn, $veces);
+if ($veces>1){
+echo "<p>El número de teléfono $telefono_sospechoso ha estafado $veces veces</p>". "<br>";
+} else{
+    echo "<p>El número de teléfono $telefono_sospechoso ha estafado una vez</p>". "<br>";
+}
 if ($resultado = mysqli_query($conn, $consulta)) {
-    echo "<h3><p>Casos de: <h2>$telefono_sospechoso<h2><p></h3>";
     echo "<table>";
     echo    "<tr>";
     echo    "<th>Expediente: </th>";
-    echo    "<th>Nombre: </th>";
-    echo    "<th>Cédula:</th>";
-    echo    "<th>Veces:</th>";
+    echo    "<th>Sospechoso:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
     echo    "<tr>";
     echo    "<td>$fila[1]</td>";
-    echo    "<td>$fila[2]</td>";
     echo    "<td>$fila[3]</td>";
-    echo    "<td>$fila[6]</td>";
     echo    "</tr>";
     }
     echo    "</table>";

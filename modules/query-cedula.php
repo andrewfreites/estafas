@@ -33,22 +33,24 @@ $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
 $count = mysqli_num_rows($resultado);
 if($count>0){
+$veces="SELECT veces FROM suspects WHERE cedula='$cedula";
+$resultVeces= mysqli_query($conn, $veces);
+if($veces>1){
+    echo "El ciudadano identificado con la cédula: $cedula ha estafado $veces veces";
+} else{
+    echo "El ciudadano identificado con la cédula: $cedula ha estafado una vez";
+}
 if ($resultado = mysqli_query($conn, $consulta)) {
-    echo "<h3>Casos de: <h2>$cedula</h2></h3>";
     echo "<table>";
     echo    "<tr>";
     echo    "<th>Expediente: </th>";
     echo    "<th>Nombre: </th>";
-    echo    "<th>Teléfono: </th>";
-    echo    "<th>Veces: </th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
     echo    "<tr>";
     echo    "<td>$fila[1]</td>";
     echo    "<td>$fila[2]</td>";
-    echo    "<td>$fila[4]</td>";
-    echo    "<td>$fila[6]</td>";
     echo    "</tr>";
     }
     echo    "</table>";

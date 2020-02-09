@@ -27,7 +27,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 //cross query
-$consulta= "SELECT complaints.expedient, victim.nombre, victim.cedula, suspects.nombre, suspects.cedula, suspects.telefono, accounts.banco, accounts.numero, complaints.monto, DATE_FORMAT(complaints.fecha, '%d/%m/%Y'), complaints.detail FROM complaints, victim, suspects, accounts WHERE complaints.expedient=victim.expedient AND victim.expedient=suspects.expedient AND suspects.expedient=accounts.expedient AND accounts.expedient='$expediente' ORDER by complaints.fecha DESC";
+$consulta= "SELECT suspects.nombre, suspects.cedula, complaints.monto, complaints.detail FROM complaints, suspects WHERE complaints.expedient=suspects.expedient AND complaints.expedient='$expediente' ORDER by complaints.expedient DESC";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
@@ -37,30 +37,18 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo "<h3><p>Casos de: <h2>$expediente<h2><p></h3>";
     echo "<table>";
     echo    "<tr>";
-    echo    "<th>Víctima: </th>";
-    echo    "<th>Cédula: </th>";
-    echo    "<th>Sospechoso:</th>";
-    echo    "<th>Cédula:</th>";
-    echo    "<th>Teléfono:</th>";
-    echo    "<th>Banco:</th>";
-    echo    "<th>Número:</th>";
+    echo    "<th>Sospechoso: </th>";
+    echo    "<th>Cedula: </th>";
     echo    "<th>Monto:</th>";
-    echo    "<th>Fecha:</th>";
     echo    "<th>Detalle:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
     echo    "<tr>";
+    echo    "<td>$fila[0]</td>";
     echo    "<td>$fila[1]</td>";
     echo    "<td>$fila[2]</td>";
     echo    "<td>$fila[3]</td>";
-    echo    "<td>$fila[4]</td>";
-    echo    "<td>$fila[5]</td>";
-    echo    "<td>$fila[6]</td>";
-    echo    "<td>$fila[7]</td>";
-    echo    "<td>$fila[8]</td>";
-    echo    "<td>$fila[9]</td>";
-    echo    "<td>$fila[10]</td>";
     echo    "</tr>";
     }
     echo    "</table>";
