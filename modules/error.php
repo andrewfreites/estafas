@@ -10,6 +10,6 @@ header ("refresh:5;url=../index.html");
     <title>Pagina no encontrada</title>
 </head>
 <body>
-<h2>Ha ocurrido un error, será redireccionado</h2> 
+<h1>Necesitas iniciar sesión para poder acceder a esta sección, serás redireccionado.</h1> 
 </body>
 </html>

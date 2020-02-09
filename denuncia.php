@@ -3,7 +3,7 @@ session_start();
 header("Cache-control:private"); 
 if($_SESSION['loggedin']=="") 
 { 
- header("Location: index.html"); 
+    header("Location: ./modules/error.php"); 
  exit; 
 }
 ?>
@@ -34,7 +34,7 @@ if($_SESSION['loggedin']=="")
     var maxField = 5; //Input fields increment limitation
     var addButton = $('.add_phone'); //Add button selector
     var wrapper = $('.phone_wrapper'); //Input field wrapper
-    var fieldHTML = '<tr><th><label for="telefono_sospechoso">Otro: </label></th><td><input type="tel" name="telefono_sospechoso[]" id="telefono_sospechoso" size="16" maxlength="11" placeholder="ejemplo: 04141234567"> <input type="button" class= "remove_phone" value="-" onClick="javascript:void(0);" title="Quitar campo" style="width:25px"></td></tr>'; //New input field html 
+    var fieldHTML = '<tr><th><label for="telefono_sospechoso">Otro: </label></th><td><input type="tel" name="telefono_sospechoso[]" id="telefono_sospechoso" size="16" maxlength="11" value="No Disponible" placeholder="ejemplo: 04141234567"> <input type="button" class= "remove_phone" value="-" onClick="javascript:void(0);" title="Quitar campo" style="width:25px"></td></tr>'; //New input field html 
     var x = 1; //Initial field counter is 1
     $(addButton).click(function(){ //Once add button is clicked
         if(x < maxField){ //Check maximum number of input fields
@@ -59,7 +59,7 @@ if($_SESSION['loggedin']=="")
         <table width="350px">
         <tr>
             <th><label for="expedient">Expediente: </label></th>
-            <td><input type="text" name="expedient" id="expedient" pattern="^[A-Za-z]-\d{2}-\d{4}-\d{5}" title="K-19-1234-12345" maxlength="15" size="18" placeholder="K-12-1234-12345" required></td>
+            <td><input type="text" name="expedient" id="expedient" pattern="^[A-Za-z]-\d{2}-\d{4}-\d{5,6}" title="K-19-1234-12345" maxlength="15" size="18" placeholder="K-12-1234-12345" required></td>
         </tr>            
         <tr>
             <th><label for="cedula_victima">Cédula de identidad: </label></th>
@@ -68,44 +68,6 @@ if($_SESSION['loggedin']=="")
         <tr>
             <th><label for="nombre_victima">Nombre: </label></th>
             <td><input type="text" name="nombre_victima" id="nombre_victima" size="18" required></td>
-        </tr>
-        <tr>
-            <th><label for="telefono_victima">Teléfono: </label></th>
-            <td><input type="tel" name="telefono_victima" id="telefono_victima" size="18" maxlength="11" placeholder="ejemplo: 04141234567"></td>
-        </tr>
-        <tr>
-            <th><label for="fecha">Fecha de la denuncia: </label></th>
-            <td><input type="date" name="fecha" id="fecha" style="width:155px" required></td>
-        </tr>
-        </table>
-        <h3>Datos Bancarios de la víctima: </h3>
-        <table width="350px">
-        <tr>
-            <th><label for="banco_victima">Entidad Bancaria: </label></th>
-            <td><select name="banco_victima" id="banco_victima"> <!-- select used for bank selection -->
-                <option value="100% Banco">100% Banco</option>
-                <option value="Activo">Activo</option>
-                <option value="Bancamiga">Bancamiga</option>
-                <option value="Bancaribe">Bancaribe</option>
-                <option value="Banesco">Banesco</option>
-                <option value="Banfanb">Banfanb</option>
-                <option value="Banplus">Banplus</option>
-                <option value="Bicentenario">Bicentenario</option>
-                <option value="BOD">BOD</option>
-                <option value="Caroni">Caroni</option>
-                <option value="Delsur">Delsur</option>
-                <option value="Exterior">Exterior</option>
-                <option value="Mercantil">Mercantil</option>
-                <option value="Plaza">Plaza</option>
-                <option value="Provincial">Provincial</option>
-                <option value="Venezolano de Credito">Venezolano de Credito</option>
-                <option value="Venezuela">Venezuela</option>
-                <option value="No aplica">No aplica</option>        
-                </select></td>
-        </tr>
-        <tr>
-            <th><label for="numero_victima">Número de cuenta: </label></th>
-            <td><input type="text" name="numero_victima" id="numero_victima" size="18" maxlength="20" placeholder="Ingresar sin separadores"></td>
         </tr>
         <tr>
             <th><label for="monto-estafado">Monto estafado: </label></th>
@@ -124,7 +86,7 @@ if($_SESSION['loggedin']=="")
         </tr>
         <tr>
             <th><label for="telefono_sospechoso">Teléfono: </label></th>                
-            <td><input type="tel" name="telefono_sospechoso[]" id="telefono_sospechoso" size="16" maxlength="11" placeholder="ejemplo: 04141234567">
+            <td><input type="text" name="telefono_sospechoso[]" id="telefono_sospechoso" size="16" maxlength="11" value="No Disponible">
             <input type="button" class= "add_phone" value="+" onClick="javascript:void(0);" title="Añadir campo" style="width:25px"></td>
         </tr>
         </table>
@@ -134,7 +96,7 @@ if($_SESSION['loggedin']=="")
     var maxField = 5; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.bank_wrapper'); //Input field wrapper
-    var fieldHTML = '<tr><td><select name="banco_sospechoso[]" id="banco_sospechoso"><option value="100% Banco">100% Banco</option><option value="Activo">Activo</option><option value="Bancamiga">Bancamiga</option><option value="Bancaribe">Bancaribe</option><option value="Banesco">Banesco</option><option value="Banfanb">Banfanb</option><option value="Banplus">Banplus</option><option value="Bicentenario">Bicentenario</option><option value="BOD">BOD</option><option value="Caroni">Caroni</option><option value="Delsur">Delsur</option><option value="Exterior">Exterior</option><option value="Mercantil">Mercantil</option><option value="Plaza">Plaza</option><option value="Provincial">Provincial</option><option value="Venezolano de Credito">Venezolano de Credito</option><option value="Venezuela">Venezuela</option><option value="No aplica">No aplica</option></select></td><td><input type="text" name="cuenta_sospechoso[]" value="" size="17" maxlength="20" /> <input type="button" class= "remove_button" value="-" onClick="javascript:void(0);" title="Quitar campo" style="width:25px"></td></tr>'; //New input field html 
+    var fieldHTML = '<tr><td><select name="banco_sospechoso[]" id="banco_sospechoso"><option value="100% Banco">100% Banco</option><option value="Activo">Activo</option><option value="Bancamiga">Bancamiga</option><option value="Bancaribe">Bancaribe</option><option value="Banesco">Banesco</option><option value="Banfanb">Banfanb</option><option value="Banplus">Banplus</option><option value="Bicentenario">Bicentenario</option><option value="BOD">BOD</option><option value="Caroni">Caroni</option><option value="Delsur">Delsur</option><option value="Exterior">Exterior</option><option value="Mercantil">Mercantil</option><option value="Plaza">Plaza</option><option value="Provincial">Provincial</option><option value="Venezolano de Credito">Venezolano de Credito</option><option value="Venezuela">Venezuela</option><option value="No Disponible" SELECTED>No Disponible</option></select></td><td><input type="text" name="cuenta_sospechoso[]" value="" size="17" maxlength="20" /> <input type="button" class= "remove_button" value="-" onClick="javascript:void(0);" title="Quitar campo" style="width:25px"></td></tr>'; //New input field html 
     var x = 1; //Initial field counter is 1
     $(addButton).click(function(){ //Once add button is clicked
         if(x < maxField){ //Check maximum number of input fields
@@ -176,9 +138,9 @@ if($_SESSION['loggedin']=="")
                 <option value="Provincial">Provincial</option>
                 <option value="Venezolano de Credito">Venezolano de Credito</option>
                 <option value="Venezuela">Venezuela</option>
-                <option value="No aplica">No aplica</option>
+                <option value="No Disponible" SELECTED>No Disponible</option>
                 </select></td>
-            <td><input type="text" name="cuenta_sospechoso[]" value="" id="cuenta_sospechoso" maxlength="20" size="17"/>
+            <td><input type="text" name="cuenta_sospechoso[]" id="cuenta_sospechoso" value="No Disponible" maxlength="20" size="17"/>
             <input type="button" class="add_button" value="+" onClick="javascript:void(0);" title="Añadir campo" style="width:25px"></td>
         </tr>
         </table>

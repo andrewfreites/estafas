@@ -3,7 +3,7 @@ session_start();
 header("Cache-control:private"); 
 if($_SESSION['loggedin']=="") 
 { 
- header("Location: index.html"); 
+ header("Location: ./modules/error.php"); 
  exit; 
 }
 ?>
@@ -32,5 +32,4 @@ if($_SESSION['loggedin']=="")
         <a href="denuncia.php"><img src="images/icono Denuncia.svg" alt="Crear denuncia"></a>
     </main>
 </body>
-
 </html>

@@ -27,7 +27,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 //cross query
-$consulta= "SELECT complaints.expedient, victim.nombre, victim.cedula, suspects.nombre, suspects.cedula, suspects.telefono, accounts.banco, accounts.numero, DATE_FORMAT(complaints.fecha, '%d/%m/%Y') FROM complaints, victim, suspects, accounts WHERE complaints.expedient=victim.expedient AND victim.expedient=suspects.expedient AND suspects.expedient=accounts.expedient AND accounts.expedient='$expediente' ORDER by complaints.fecha DESC";
+$consulta= "SELECT complaints.expedient, victim.nombre, victim.cedula, suspects.nombre, suspects.cedula, suspects.telefono, accounts.banco, accounts.numero, complaints.monto, DATE_FORMAT(complaints.fecha, '%d/%m/%Y'), complaints.detail FROM complaints, victim, suspects, accounts WHERE complaints.expedient=victim.expedient AND victim.expedient=suspects.expedient AND suspects.expedient=accounts.expedient AND accounts.expedient='$expediente' ORDER by complaints.fecha DESC";
 //guarda la consulta
 $resultado = mysqli_query($conn, $consulta);
 // Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
@@ -44,7 +44,9 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<th>Teléfono:</th>";
     echo    "<th>Banco:</th>";
     echo    "<th>Número:</th>";
+    echo    "<th>Monto:</th>";
     echo    "<th>Fecha:</th>";
+    echo    "<th>Detalle:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
     while ($fila = mysqli_fetch_row($resultado)) {
@@ -57,6 +59,8 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<td>$fila[6]</td>";
     echo    "<td>$fila[7]</td>";
     echo    "<td>$fila[8]</td>";
+    echo    "<td>$fila[9]</td>";
+    echo    "<td>$fila[10]</td>";
     echo    "</tr>";
     }
     echo    "</table>";

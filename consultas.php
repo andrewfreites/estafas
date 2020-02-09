@@ -3,7 +3,7 @@ session_start();
 header("Cache-control:private"); 
 if($_SESSION['loggedin']=="") 
 { 
- header("Location: index.html"); 
+header("Location: ./modules/error.php");
  exit; 
 }
 ?>
@@ -73,7 +73,7 @@ if($_SESSION['loggedin']=="")
     <tr><th><p>Por expediente</p></th></tr>
     <form action="modules/query-expedient.php" method="POST">
     <tr><td><label for="expediente">Expediente: </label>
-    <input type="text" name="expediente" id="expediente" maxlength="15" style="width:150px" pattern="^[A-Za-z]-\d{2}-\d{4}-\d{5}" title="Ejemplo: K-12-1234-12345" required>
+    <input type="text" name="expediente" id="expediente" maxlength="15" style="width:150px" pattern="^[A-Za-z]-\d{2}-\d{4}-\d{5,6}" title="Ejemplo: K-12-1234-12345" required>
     <input type="submit" value="Buscar"></td>
     </form>
     </tr>
