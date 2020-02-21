@@ -7,10 +7,6 @@ if($_SESSION['loggedin']=="")
  exit; 
 }
 include 'conexion.php';
-if (mysqli_connect_errno()) {
-    printf("Falló la conexión: %s\n", mysqli_connect_error());
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,45 +19,35 @@ if (mysqli_connect_errno()) {
 </head>
 <body>
 <?php
-//consulta a la tabla de cuentas
-$consulta= "SELECT * FROM complaints ORDER by fecha DESC";
-//guarda la consulta
-$resultado = mysqli_query($conn, $consulta);
-// Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
-$count = mysqli_num_rows($resultado);
-if($count>0){
-if ($resultado = mysqli_query($conn, $consulta)) {
-    echo "<table>";
-    echo    "<tr>";
-    echo    "<th>Victima:</th>";
-    echo    "<th>Banco:</th>";
-    echo    "<th>Numero de cuenta:</th>";
-    echo    "<th>Teléfono:</th>";
-    echo    "<th>Decripción:</th>";
-    echo    "<th>Fecha:</th>";
-    echo    "</tr>";
-    /* obtener el array asociativo */
-    while ($fila = mysqli_fetch_row($resultado)) {
-    echo    "<tr>";
-    echo    "<td>$fila[1]</td>";
-    echo    "<td>$fila[2]</td>";
-    echo    "<td>$fila[3]</td>";
-    echo    "<td>$fila[4]</td>";
-    echo    "<td>$fila[5]</td>";
-    echo    "<td>$fila[6]</td>";
-    echo    "</tr>";
+//query complaints table
+$consulta= $conn->prepare("SELECT * FROM complaints ORDER by fecha DESC");
+if ($consulta->execute()){
+    $count = $consulta->rowCount();
+    if($count>0){
+    echo "<h2>La cantidad total de denuncias es de: ". $count."</h2>";
+        echo "<table>";
+        echo    "<tr>";
+        echo    "<th>Expediente:</th>";
+        echo    "<th>Monto:</th>";
+        echo    "<th>Descripción:</th>";
+        echo    "</tr>";
+        /* obtener el array asociativo */
+        while ($row=$consulta->fetch(PDO::FETCH_OBJ)) {
+        echo    "<tr>";
+        echo    "<td>" . $row->expedient . "</td>";
+        echo    "<td>" . $row->monto . "</td>";
+        echo    "<td>" . $row->detail . "</td>";
+        echo    "</tr>";
+        }
+        echo    "</table>";
+    } else{
+        echo "<h2>No existen denuncias registradas</h2>";
     }
-    echo    "</table>";
-    /* liberar el conjunto de resultados */
-    mysqli_free_result($resultado);
+} else {
+    $consulta->error;
 }
-}else{
-    echo "No existen denuncias registradas";
-}
-/* cerrar la conexión */
-mysqli_close($conn);
+$conn=null;
 ?>
-
 <p><a href="../consultas.php">Regresar a consultas</a></p>
 </body>
 </html>

@@ -30,7 +30,7 @@ header("Location: ./modules/error.php");
         <tr>
             <th> Cuentas </th>
             <th> Teléfonos </th>
-            <!-- <th> Denuncias </th> -->
+            <th> Denuncias </th>
         </tr>
         <tr>
     <!-- Consulta general cuentas -->
@@ -42,9 +42,9 @@ header("Location: ./modules/error.php");
     <td><input type="submit" value="Consultar"></td>
     </form>
     <!-- Consulta general de denuncias -->
-    <!-- <form action="modules/query-complaints.php" method="post">
+    <form action="modules/query-complaints.php" method="post">
     <td><input type="submit" value="Consultar"></td>
-    </form> -->
+    </form>
     </tr>
     </table>
     <h2>Consultas detalladas:</h2>

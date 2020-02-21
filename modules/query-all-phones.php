@@ -19,43 +19,34 @@ include 'conexion.php';
 </head>
 <body>
 <?php
-if (mysqli_connect_errno()) {
-    printf("Falló la conexión: %s\n", mysqli_connect_error());
-    exit();
-}
 //consulta a la tabla de cuentas
-$consulta= "SELECT * FROM phones ORDER by veces DESC";
-//guarda la consulta
-$resultado = mysqli_query($conn, $consulta);
-// Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
-$count = mysqli_num_rows($resultado);
+$consulta= $conn->prepare("SELECT * FROM phones");
+if ($consulta->execute()){
+$count = $consulta->rowCount();
 if($count>0){
-if ($resultado = mysqli_query($conn, $consulta)) {
     echo "<table>";
     echo    "<tr>";
     echo    "<th>Expediente:</th>";
     echo    "<th>Número:</th>";
     echo    "<th>Sospechoso:</th>";
-    echo    "<th>Veces:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
-    while ($fila = mysqli_fetch_row($resultado)) {
+    while ($row = $consulta->fetch(PDO::FETCH_OBJ)) {
     echo    "<tr>";
-    echo    "<td>$fila[1]</td>";
-    echo    "<td>$fila[2]</td>";
-    echo    "<td>$fila[3]</td>";
-    echo    "<td>$fila[4]</td>";
+    echo    "<td>" . $row->expedient . "</td>";
+    echo    "<td>" . $row->numero . "</td>";
+    echo    "<td>" . $row->suspect . "</td>";
     echo    "</tr>";
     }
     echo    "</table>";
-    /* liberar el conjunto de resultados */
-    mysqli_free_result($resultado);
+} else{
+    echo "<h2>No existen teléfonos registrados en la base de datos</h2>";
 }
-}else{
-    echo "No existen teléfonos registrados en la base de datos";
+} else {
+    $consulta->error;
 }
 /* cerrar la conexión */
-mysqli_close($conn);
+$conn=null;
 ?>
 <p><a href="../consultas.php">Regresar a consultas</a></p>
 </body>

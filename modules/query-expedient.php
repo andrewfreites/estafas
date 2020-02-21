@@ -21,19 +21,12 @@ include 'conexion.php';
 <?php
 //declaración de variables obtenidas mediante POST
 $expediente=$_POST['expediente'];
-
-if (mysqli_connect_errno()) {
-    printf("Falló la conexión: %s\n", mysqli_connect_error());
-    exit();
-}
 //cross query
-$consulta= "SELECT suspects.nombre, suspects.cedula, complaints.monto, complaints.detail FROM complaints, suspects WHERE complaints.expedient=suspects.expedient AND complaints.expedient='$expediente' ORDER by complaints.expedient DESC";
-//guarda la consulta
-$resultado = mysqli_query($conn, $consulta);
-// Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
-$count = mysqli_num_rows($resultado);
+$consulta= $conn->prepare("SELECT suspects.nombre, suspects.cedula, complaints.monto, complaints.detail FROM suspects INNER JOIN complaints ON  complaints.expedient = suspects.expedient AND complaints.expedient= ? ORDER by complaints.fecha DESC");
+$consulta->bindParam(1, $expediente);
+if ($consulta->execute()){
+    $count = $consulta->rowCount();
 if($count>0){
-if ($resultado = mysqli_query($conn, $consulta)) {
     echo "<h3><p>Casos de: <h2>$expediente<h2><p></h3>";
     echo "<table>";
     echo    "<tr>";
@@ -43,23 +36,25 @@ if ($resultado = mysqli_query($conn, $consulta)) {
     echo    "<th>Detalle:</th>";
     echo    "</tr>";
     /* obtener el array asociativo */
-    while ($fila = mysqli_fetch_row($resultado)) {
+    while ($row=$consulta->fetch(PDO::FETCH_OBJ)) {
     echo    "<tr>";
-    echo    "<td>$fila[0]</td>";
-    echo    "<td>$fila[1]</td>";
-    echo    "<td>$fila[2]</td>";
-    echo    "<td>$fila[3]</td>";
+    echo    "<td>" . $row->nombre . "</td>";
+    echo    "<td>" . $row->cedula . "</td>";
+    echo    "<td>" . $row->monto . "</td>";
+    echo    "<td>" . $row->detail . "</td>";
     echo    "</tr>";
     }
     echo    "</table>";
-    /* liberar el conjunto de resultados */
-    mysqli_free_result($resultado);
-}
 } else {
     echo "No existen registros con el expediente: ".$expediente;
 }
+} else {
+    $consulta->error;
+}
+// Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
+
 /* cerrar la conexión */
-mysqli_close($conn);
+$conn=null;
 ?>
 <p><a href="../consultas.php">Regresar a consultas</a></p>
 </body>

@@ -21,47 +21,32 @@ include 'conexion.php';
 <?php
 //declaración de variables obtenidas mediante POST
 $cedula=$_POST['cedula'];
-
-if (mysqli_connect_errno()) {
-    printf("Falló la conexión: %s\n", mysqli_connect_error());
-    exit();
-}
 //consulta a la tabla de cuentas
-$consulta= "SELECT * FROM suspects WHERE cedula='$cedula' ORDER by veces DESC";
-//guarda la consulta
-$resultado = mysqli_query($conn, $consulta);
-// Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
-$count = mysqli_num_rows($resultado);
-if($count>0){
-$veces="SELECT veces FROM suspects WHERE cedula='$cedula";
-$resultVeces= mysqli_query($conn, $veces);
-if($veces>1){
-    echo "El ciudadano identificado con la cédula: $cedula ha estafado $veces veces";
-} else{
-    echo "El ciudadano identificado con la cédula: $cedula ha estafado una vez";
-}
-if ($resultado = mysqli_query($conn, $consulta)) {
-    echo "<table>";
-    echo    "<tr>";
-    echo    "<th>Expediente: </th>";
-    echo    "<th>Nombre: </th>";
-    echo    "</tr>";
-    /* obtener el array asociativo */
-    while ($fila = mysqli_fetch_row($resultado)) {
-    echo    "<tr>";
-    echo    "<td>$fila[1]</td>";
-    echo    "<td>$fila[2]</td>";
-    echo    "</tr>";
+$consulta= $conn->prepare("SELECT * FROM suspects WHERE cedula= ? ");
+$consulta->bindParam(1, $cedula);
+if ($consulta->execute()){
+    $count=$consulta->rowCount();
+    if($count>0){
+    echo "<p><h3>El total de veces que el ciudadano identificado con la cédula: $cedula ha estafado es igual a $count</h3></p>";
+        echo "<table>";
+        echo    "<tr>";
+        echo    "<th>Expediente: </th>";
+        echo    "<th>Nombre: </th>";
+        echo    "</tr>";
+        while ($row = $consulta->fetch(PDO::FETCH_OBJ)) {
+        echo    "<tr>";
+        echo    "<td>" . $row->expedient . "</td>";
+        echo    "<td>" . $row->nombre . "</td>";
+        echo    "</tr>";
+        }
+        echo    "</table>";
+    } else {
+        echo "<h3>No existen registros con el número de cédula: ".$cedula. "</h3>";
     }
-    echo    "</table>";
-    /* liberar el conjunto de resultados */
-    mysqli_free_result($resultado);
-}
 } else {
-    echo "No existen registros con el número de cédula: ".$cedula;
+    $consulta->error;
 }
-/* cerrar la conexión */
-mysqli_close($conn);
+$conn=null;
 ?>
 <p><a href="../consultas.php">Regresar a consultas</a></p>
 </body>
