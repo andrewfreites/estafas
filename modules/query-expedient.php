@@ -19,14 +19,29 @@ include 'conexion.php';
 </head>
 <body>
 <?php
-//declaración de variables obtenidas mediante POST
+$limit=20;
 $expediente=$_POST['expediente'];
 //cross query
 $consulta= $conn->prepare("SELECT suspects.nombre, suspects.cedula, complaints.monto, complaints.detail FROM suspects INNER JOIN complaints ON  complaints.expedient = suspects.expedient AND complaints.expedient= ? ORDER by complaints.fecha DESC");
 $consulta->bindParam(1, $expediente);
 if ($consulta->execute()){
     $count = $consulta->rowCount();
-if($count>0){
+    $total_pages= ceil($count/$limit);
+    if (!isset($_GET['page'])){
+        $page= 1;
+    } else {
+        $page= $_GET['page'];
+    }
+} else{
+    $consulta->error;
+}
+$start=($page-1)*$limit;
+$complaint= $conn->prepare("SELECT suspects.nombre, suspects.cedula, complaints.monto, complaints.detail FROM suspects INNER JOIN complaints ON  complaints.expedient = suspects.expedient AND complaints.expedient= ? ORDER by complaints.fecha DESC LIMIT ?,? ");
+$complaint->bindParam(1, $expediente);
+$complaint->bindParam(2,$start, PDO::PARAM_INT);
+$complaint->bindParam(3,$limit, PDO::PARAM_INT);
+if ($complaint->execute()){
+    if($count>0){
     echo "<h3><p>Casos de: <h2>$expediente<h2><p></h3>";
     echo "<table>";
     echo    "<tr>";
@@ -35,8 +50,7 @@ if($count>0){
     echo    "<th>Monto:</th>";
     echo    "<th>Detalle:</th>";
     echo    "</tr>";
-    /* obtener el array asociativo */
-    while ($row=$consulta->fetch(PDO::FETCH_OBJ)) {
+    while ($row=$complaint->fetch(PDO::FETCH_OBJ)) {
     echo    "<tr>";
     echo    "<td>" . $row->nombre . "</td>";
     echo    "<td>" . $row->cedula . "</td>";
@@ -45,15 +59,29 @@ if($count>0){
     echo    "</tr>";
     }
     echo    "</table>";
+    if ($page>1 && $page<2){
+        echo "<a href=?page=".($page-1).">anterior</a>";
+    } else if ($page>=2){
+        echo "<a href=?page=1>Inicio </a>";
+        echo "<a href=?page=".($page-1).">anterior</a>";
+    }
+    for ($i=$page-2; $i<$page+3 ; $i++){
+        if (($i!=$page && $i>1) && ($i<$total_pages))
+    echo "<a href=?page=$i>". $i ." </a>";
+    }
+    if ($page<($total_pages-1)){
+    echo "<a href=?page=".($page+1).">Siguiente </a>";
+    echo "<a href=?page=".($total_pages)."> Final</a>";
+    } else if ($page==($total_pages-1)){
+    echo "<a href=?page=".($total_pages)."> Final</a>";
+    }
 } else {
     echo "No existen registros con el expediente: ".$expediente;
 }
 } else {
-    $consulta->error;
+    $complaint->error;
 }
-// Variable $count mantiene el resultado de la consulta, cuenta el numero de filas obtenidas
-
-/* cerrar la conexión */
+//close connection
 $conn=null;
 ?>
 <p><a href="../consultas.php">Regresar a consultas</a></p>

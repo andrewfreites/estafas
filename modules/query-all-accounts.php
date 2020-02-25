@@ -20,13 +20,24 @@ include 'conexion.php';
 <body>
 <?php
 //consulta a la tabla de cuentas
-$consulta= $conn->prepare("SELECT * FROM accounts");
+$limit=20; //Limit per page
+$consulta= $conn->prepare("SELECT * FROM accounts"); //redudant but used to get $count amount
 if ($consulta->execute()){
-
+$count= $consulta->rowCount();
+$total_pages= ceil($count/$limit);
+if (!isset($_GET['page'])){
+	$page= 1;
+} else {
+	$page= $_GET['page'];
+}
 } else{
     $consulta->error;
 }
-$count = $consulta->rowCount();
+$start= ($page-1)*$limit;
+$accounts=$conn->prepare("SELECT * FROM accounts ORDER BY id DESC LIMIT ?,? ");
+$accounts->bindParam(1,$start, PDO::PARAM_INT);
+$accounts->bindParam(2,$limit, PDO::PARAM_INT);
+if($accounts->execute()){
 if($count>0){
 echo "<h2>El total de cuentas registradas es de: ". $count ."</h2>"; 
     echo "<table>";
@@ -36,9 +47,8 @@ echo "<h2>El total de cuentas registradas es de: ". $count ."</h2>";
     echo    "<th>Número:</th>";
     echo    "<th>Sospechoso:</th>";
     echo    "</tr>";
-    /* obtener el array asociativo */
-    while ($row=$consulta->fetch(PDO::FETCH_OBJ)) {
-    echo    "<tr>";
+	while ($row=$accounts->fetch(PDO::FETCH_OBJ)){ //Object Fetch
+	echo    "<tr>";
     echo    "<td>" . $row->expedient . "</td>";
     echo    "<td>" . $row->banco . "</td>";
     echo    "<td>" . $row->numero . "</td>";
@@ -46,10 +56,29 @@ echo "<h2>El total de cuentas registradas es de: ". $count ."</h2>";
     echo    "</tr>";
     }
     echo    "</table>";
-} else{
-    echo "<h2>No existen cuentas registrados en la base de datos</h2>";
+    if ($page>1 && $page<2){
+        echo "<a href=?page=".($page-1).">anterior</a>";
+    } else if ($page>=2){
+        echo "<a href=?page=1>Inicio </a>";
+        echo "<a href=?page=".($page-1).">anterior</a>";
+    }
+    for ($i=$page-2; $i<$page+3 ; $i++){
+        if (($i!=$page && $i>1) && ($i<$total_pages))
+    echo "<a href=?page=$i>". $i ." </a>";
+    }
+if ($page<($total_pages-1)){
+    echo "<a href=?page=".($page+1).">Siguiente </a>";
+    echo "<a href=?page=".($total_pages)."> Final</a>";
+} else if ($page==($total_pages-1)){
+    echo "<a href=?page=".($total_pages)."> Final</a>";
 }
-/* cerrar la conexión */
+} else{
+    echo "<h3>No existen cuentas bancarias registradas</h3>";
+}
+} else {
+    $accounts->error;
+}
+/* close connection */
 $conn=null;
 ?>
 <p><a href="../consultas.php">Regresar a consultas</a></p>

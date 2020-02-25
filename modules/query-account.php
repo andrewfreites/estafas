@@ -19,33 +19,62 @@ include 'conexion.php';
 </head>
 <body>
 <?php
-//declaración de variables obtenidas mediante POST
+$limit=20;
 $cuenta_sospechoso=$_POST['cuenta_sospechoso'];
-//consulta a la tabla de cuentas
 $consulta= $conn->prepare("SELECT * FROM accounts WHERE numero= ? ");
-$consulta->bindParam(1, $cuenta_sospechoso);
+$consulta->bindParam(1, $cuenta_sospechoso, PDO::PARAM_INT);
 if ($consulta->execute()){
 $count = $consulta->rowCount();
-if($count>0){
+$total_pages= ceil($count/$limit);
+if (!isset($_GET['page'])){
+    $page= 1;
+} else {
+    $page= $_GET['page'];
+}
+} else{
+    $consulta->error;
+}
+$start= ($page-1)*$limit;
+$accounts= $conn->prepare("SELECT * FROM accounts WHERE numero= ? LIMIT ?,? ");
+$accounts->bindParam(1, $cuenta_sospechoso, PDO::PARAM_INT);
+$accounts->bindParam(2,$start, PDO::PARAM_INT);
+$accounts->bindParam(3,$limit, PDO::PARAM_INT);
+if ($accounts->execute()){
+    if($count>0){
     echo "<h3>Casos del número de cuenta $cuenta_sospechoso</h3>";
     echo "<table>";
     echo    "<tr>";
     echo    "<th>Expediente: </th>";
     echo    "<th>Sospechoso:</th>";
     echo    "</tr>";
-    /* obtener el array asociativo */
-    while ($row = $consulta->fetch(PDO::FETCH_OBJ)) {
+    while ($row = $accounts->fetch(PDO::FETCH_OBJ)) {
     echo    "<tr>";
     echo    "<td>" . $row->expedient . "</td>";
     echo    "<td>" . $row->sospechoso . "</td>";
     echo    "</tr>";
     }
     echo    "</table>";
+    if ($page>1 && $page<2){
+        echo "<a href=?page=".($page-1).">anterior</a>";
+    } else if ($page>=2){
+        echo "<a href=?page=1>Inicio </a>";
+        echo "<a href=?page=".($page-1).">anterior</a>";
+    }
+    for ($i=$page-2; $i<$page+3 ; $i++){
+        if (($i!=$page && $i>1) && ($i<$total_pages))
+    echo "<a href=?page=$i>". $i ." </a>";
+    }
+    if ($page<($total_pages-1)){
+    echo "<a href=?page=".($page+1).">Siguiente </a>";
+    echo "<a href=?page=".($total_pages)."> Final</a>";
+    } else if ($page==($total_pages-1)){
+    echo "<a href=?page=".($total_pages)."> Final</a>";
+}
 } else {
     echo "<p>No existen registros con el número de cuenta: </p>".$cuenta_sospechoso;
 }
 } else {
-    $consulta->error;
+    $accounts->error;
 }
 /* cerrar la conexión */
 $conn=null;

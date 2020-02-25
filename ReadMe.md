@@ -11,6 +11,6 @@ Learn to use PHP, MySql, HTML5, CSS3 and JavaScript without frameworks.
 - [x] RegEx for inputs
 - [x] CRUD with PHP
 - [x] SQL prepared statements
-- [ ] Queries Pagination _In progress_
-- [ ] Session Fixation
+- [x] Queries Pagination
+- [ ] Session Fixation _In progress_
 - [ ] CSS

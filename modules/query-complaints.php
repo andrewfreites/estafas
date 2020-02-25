@@ -19,10 +19,25 @@ include 'conexion.php';
 </head>
 <body>
 <?php
-//query complaints table
-$consulta= $conn->prepare("SELECT * FROM complaints ORDER by fecha DESC");
+$limit=20; //Limit per page
+$consulta= $conn->prepare("SELECT * FROM complaints"); //redudant but used to get $count amount
 if ($consulta->execute()){
-    $count = $consulta->rowCount();
+$count= $consulta->rowCount();
+$total_pages= ceil($count/$limit);
+if (!isset($_GET['page'])){
+	$page= 1;
+} else {
+	$page= $_GET['page'];
+}
+} else{
+    $consulta->error;
+}
+$start= ($page-1)*$limit;
+$complaints= $conn->prepare("SELECT * FROM complaints ORDER by fecha DESC LIMIT ?,? ");
+$complaints->bindParam(1,$start, PDO::PARAM_INT);
+$complaints->bindParam(2,$limit, PDO::PARAM_INT);
+$total_pages= ceil($count/$limit);
+if ($complaints->execute()){
     if($count>0){
     echo "<h2>La cantidad total de denuncias es de: ". $count."</h2>";
         echo "<table>";
@@ -32,7 +47,7 @@ if ($consulta->execute()){
         echo    "<th>Descripción:</th>";
         echo    "</tr>";
         /* obtener el array asociativo */
-        while ($row=$consulta->fetch(PDO::FETCH_OBJ)) {
+        while ($row=$complaints->fetch(PDO::FETCH_OBJ)) {
         echo    "<tr>";
         echo    "<td>" . $row->expedient . "</td>";
         echo    "<td>" . $row->monto . "</td>";
@@ -40,11 +55,27 @@ if ($consulta->execute()){
         echo    "</tr>";
         }
         echo    "</table>";
-    } else{
-        echo "<h2>No existen denuncias registradas</h2>";
+    if ($page>1 && $page<2){
+        echo "<a href=?page=".($page-1).">anterior</a>";
+    } else if ($page>=2){
+        echo "<a href=?page=1>Inicio </a>";
+        echo "<a href=?page=".($page-1).">anterior</a>";
     }
+    for ($i=$page-2; $i<$page+3 ; $i++){
+        if (($i!=$page && $i>1) && ($i<$total_pages))
+    echo "<a href=?page=$i>". $i ." </a>";
+    }
+    if ($page<($total_pages-1)){
+    echo "<a href=?page=".($page+1).">Siguiente </a>";
+    echo "<a href=?page=".($total_pages)."> Final</a>";
+    } else if ($page==($total_pages-1)){
+    echo "<a href=?page=".($total_pages)."> Final</a>";
+}
 } else {
-    $consulta->error;
+    echo "<h3>No existen cuentas registradas en la base de datos</h3>";
+}
+} else {
+    $complaints->error;
 }
 $conn=null;
 ?>
