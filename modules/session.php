@@ -1,15 +1,19 @@
 <?php
-//un muy mal intento de cerrar sesion por inactividad, luego vere como lo hago
-if(isset($_SESSION['start'])){
-    $inactivo=60;
-    $duracion= time()-$_SESSION['start'];
+if(isset($_SESSION['active'])){
+
+    echo "start esta fijado ";
+    $inactivo=1*60;
+    $duracion= time()-$_SESSION['active'];
+    echo "start: ". $_SESSION['start'];
+    echo "duracion: $duracion ";
     if($duracion>$inactivo){
         session_unset();
-        session_destroy;
+        session_destroy();
         echo "la sesión ha caducado";
-        header ("refresh:10;url= index.html");
+        header ('location: modules/logout.php');
     }
 } else{
-    $_SESSION['start']=time();
+    echo "start no esta fijado";
+    $_SESSION['active']=time();
 }
 ?>

@@ -26,7 +26,6 @@ session_start();
         //$row se trae el campo 'name' de la consulta de $result para mostrarlo como el nombre del usuario en la sesión
         $_SESSION['name'] = $row->name;
         $_SESSION['start'] = time();
-        $_SESSION['expire'] = $_SESSION['start'] + (1 * 60);
         header("Location: ../admin.php");						
     } else {
         echo "<strong>Email o contraseña incorrectos!</strong>

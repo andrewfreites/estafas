@@ -4,7 +4,7 @@ header("Cache-control:private");
 if($_SESSION['loggedin']=="") 
 { 
 header("Location: ./modules/error.php");
- exit; 
+exit; 
 }
 ?>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ header("Location: ./modules/error.php");
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <title>Consultas</title>
 </head>
-<body class="wrapper">
+<body>
     <header>
         <nav>
             <ul>
@@ -88,5 +88,8 @@ header("Location: ./modules/error.php");
     </form>
     </tr>
     </table>
+    <script src="js/outTime.js"></script>
+    <script src="js/rest.js"></script>
+    <p id="countdown"></p>
 </body>
 </html>

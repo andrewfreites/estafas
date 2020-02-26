@@ -18,12 +18,12 @@ if($_SESSION['loggedin']=="")
     <title>Administración</title>
 </head>
 
-<body class="wrapper">
+<body>
     <header>
         <nav>
             <ul>
             <?php
-            echo "<li>Bienvendio $_SESSION[name]</li>";
+            echo "<li>Bienvenido $_SESSION[name]</li>";
             ?>
                 <a href="modules/logout.php"><li>Salir</li></a>
             </ul>
@@ -34,5 +34,8 @@ if($_SESSION['loggedin']=="")
         <a href="consultas.php"><img src="images/icono DB.svg" alt="Realizar consulta"></a>
         <a href="denuncia.php"><img src="images/icono Denuncia.svg" alt="Crear denuncia"></a>
     </main>
+    <script src="js/outTime.js"></script>
+    <script src="js/rest.js"></script>
+    <p id="countdown"></p>
 </body>
 </html>

@@ -17,7 +17,7 @@ if($_SESSION['loggedin']=="")
     <script src="js/jquery-3.4.1.js"></script>
     <title>Crear Denuncia</title>
 </head>
-<body class="wrapper">
+<body>
     <header>
         <!-- navigation menu -->
         <nav> 
@@ -150,5 +150,8 @@ if($_SESSION['loggedin']=="")
         <input type="reset" value="Borrar todo"></p> <!-- reset form button -->
     </form>
     </main>
+    <script src="js/outTime.js"></script>
+    <script src="js/rest.js"></script>
+    <p id="countdown"></p>
 </body>
 </html>
