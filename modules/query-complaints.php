@@ -80,5 +80,11 @@ if ($complaints->execute()){
 $conn=null;
 ?>
 <p><a href="../consultas.php">Regresar a consultas</a></p>
+<script>
+window.onload = setTimeout;
+setTimeout(function(){
+    window.location.href = "session_out.php";}, 15 * 60000);
+<script src="../js/rest.js"></script>
+<p id="countdown"></p>
 </body>
 </html>
