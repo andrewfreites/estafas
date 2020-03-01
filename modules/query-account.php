@@ -1,6 +1,7 @@
 <?php
 session_start();
-header("Cache-control:private"); 
+header("Cache-control:private");
+include 'checkUser.php';
 if($_SESSION['loggedin']=="") 
 { 
  header("Location:../index.html"); 

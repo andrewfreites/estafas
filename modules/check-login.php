@@ -12,20 +12,19 @@ session_start();
     // se muestra un mensaje pidiendo iniciar sesión en la página de login
 	if ($count == 1) {
     $row = $query->fetch(PDO::FETCH_OBJ);
-  
     // guardar el hash del password
     $hash = $row->pass;
-    
     /* 
-    password_verify() verifica si la clave y el hash son iguales. $_SESSION['expire'] = $_SESSION['start'] + (1 * 60)
-    define el tiempo en que expira la sesión. Cambiar el 1 por la cantidad de minutos que desee para la sesión.
+    password_verify() verifica si la clave y el hash son iguales.
     */
     if (password_verify($_POST['pass'], $hash)) {	
-        
+        session_regenerate_id(true);
         $_SESSION['loggedin'] = true; //valor boolean de sesión iniciada
         //$row se trae el campo 'name' de la consulta de $result para mostrarlo como el nombre del usuario en la sesión
         $_SESSION['name'] = $row->name;
         $_SESSION['start'] = time();
+        $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+        $_SESSION['userIp'] = $_SERVER['REMOTE_ADDR'];
         header("Location: ../admin.php");						
     } else {
         echo "<strong>Email o contraseña incorrectos!</strong>
