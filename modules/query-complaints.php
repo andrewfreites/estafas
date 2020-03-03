@@ -14,11 +14,22 @@ include 'conexion.php';
 <head>
 <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
     <title>Listado de denuncias</title>
 </head>
 <body>
+<header>
+    <nav class="topnav" id="myTopnav">
+        <a href="../admin.php">Menú</a>
+        <a href="../consultas.php" class="active">Consultas</a>
+        <a href="../denuncia.php">Tomar denuncia</a>
+        <a href="../modules/logout.php">Salir</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </nav>
+        <script src="../js/nav.js"></script>
+</header>
 <?php
 $limit=20; //Limit per page
 $consulta= $conn->prepare("SELECT * FROM complaints"); //redudant but used to get $count amount
@@ -55,7 +66,8 @@ if ($complaints->execute()){
         echo    "<td>" . $row->detail . "</td>";
         echo    "</tr>";
         }
-        echo    "</table>";
+        echo    "<tr>";
+        echo    "<td colspan="."3".">";
     if ($page>1 && $page<2){
         echo "<a href=?page=".($page-1).">anterior</a>";
     } else if ($page>=2){
@@ -72,6 +84,9 @@ if ($complaints->execute()){
     } else if ($page==($total_pages-1)){
     echo "<a href=?page=".($total_pages)."> Final</a>";
 }
+echo    "</td>";
+echo    "</tr>";
+echo    "</table>";
 } else {
     echo "<h3>No existen cuentas registradas en la base de datos</h3>";
 }

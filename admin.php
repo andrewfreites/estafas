@@ -15,26 +15,31 @@ if($_SESSION['loggedin']=="")
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/all.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <title>Administración</title>
 </head>
 
 <body>
     <header>
-        <nav>
-            <ul>
-            <?php
-            echo "<li>Bienvenido $_SESSION[name]</li>";
-            ?>
-                <a href="modules/logout.php"><li>Salir</li></a>
-            </ul>
+        <nav class="topnav" id="myTopnav">
+            <a href="admin.php" class="active">Menú</a>
+            <a href="consultas.php">Consultas</a>
+            <a href="denuncia.php">Tomar denuncia</a>
+            <a href="modules/logout.php">Salir</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+            </a>
         </nav>
+        <script src="js/nav.js"></script>
     </header>
-    <main role="main">
-        <h2>Seleccione una opción:</h2>
-        <a href="consultas.php"><img src="images/icono DB.svg" alt="Realizar consulta"></a>
-        <a href="denuncia.php"><img src="images/icono Denuncia.svg" alt="Crear denuncia"></a>
-    </main>
+<?php
+    echo "<h2>Bienvenido $_SESSION[name]</h2>";
+?>
+    <section class="menu">
+        <a href="consultas.php"><img src="images/icono DB.svg" alt="Realizar consulta" class="opciones"></a>
+        <a href="denuncia.php"><img src="images/icono Denuncia.svg" alt="Crear denuncia" class="opciones"></a>
+    </section>
     <script src="js/outTime.js"></script>
     <script src="js/rest.js"></script>
     <p id="countdown"></p>

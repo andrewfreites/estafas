@@ -14,11 +14,22 @@ include 'conexion.php';
 <head>
 <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
     <title>Consulta General de Cuentas</title>
 </head>
 <body>
+<header>
+    <nav class="topnav" id="myTopnav">
+        <a href="../admin.php">Menú</a>
+        <a href="../consultas.php" class="active">Consultas</a>
+        <a href="../denuncia.php">Tomar denuncia</a>
+        <a href="../modules/logout.php">Salir</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </nav>
+        <script src="../js/nav.js"></script>
+</header>
 <?php
 //consulta a la tabla de cuentas
 $limit=20; //Limit per page
@@ -42,7 +53,7 @@ if($accounts->execute()){
 if($count>0){
 echo "<h2>El total de cuentas registradas es de: ". $count ."</h2>"; 
     echo "<table>";
-    echo    "<tr>";
+    echo    "<tr class="."tableHeader".">";
     echo    "<th>Expediente:</th>";
     echo    "<th>Banco:</th>";
     echo    "<th>Número:</th>";
@@ -56,23 +67,27 @@ echo "<h2>El total de cuentas registradas es de: ". $count ."</h2>";
     echo    "<td>" . $row->sospechoso . "</td>";
     echo    "</tr>";
     }
-    echo    "</table>";
+    echo    "<tr>";
+    echo    "<td colspan="."4".">";
     if ($page>1 && $page<2){
-        echo "<a href=?page=".($page-1).">anterior</a>";
+        echo "<a href=?page=".($page-1)."> anterior - </a>";
     } else if ($page>=2){
-        echo "<a href=?page=1>Inicio </a>";
-        echo "<a href=?page=".($page-1).">anterior</a>";
+        echo "<a href=?page=1>inicio - </a>";
+        echo "<a href=?page=".($page-1)."> anterior - </a>";
     }
     for ($i=$page-2; $i<$page+3 ; $i++){
         if (($i!=$page && $i>1) && ($i<$total_pages))
-    echo "<a href=?page=$i>". $i ." </a>";
+    echo "<a href=?page=$i>". $i ." - </a>";
     }
 if ($page<($total_pages-1)){
-    echo "<a href=?page=".($page+1).">Siguiente </a>";
-    echo "<a href=?page=".($total_pages)."> Final</a>";
+    echo "<a href=?page=".($page+1)."> siguiente - </a>";
+    echo "<a href=?page=".($total_pages)."> final</a>";
 } else if ($page==($total_pages-1)){
-    echo "<a href=?page=".($total_pages)."> Final</a>";
+    echo "<a href=?page=".($total_pages)."> final</a>";
 }
+echo    "</td>";
+echo    "</tr>";
+echo    "</table>";
 } else{
     echo "<h3>No existen cuentas bancarias registradas</h3>";
 }

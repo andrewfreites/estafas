@@ -14,11 +14,22 @@ include 'conexion.php';
 <head>
 <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
     <title>Consulta General de Teléfonos</title>
 </head>
 <body>
+<header>
+    <nav class="topnav" id="myTopnav">
+        <a href="../admin.php">Menú</a>
+        <a href="../consultas.php" class="active">Consultas</a>
+        <a href="../denuncia.php">Tomar denuncia</a>
+        <a href="../modules/logout.php">Salir</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </nav>
+        <script src="../js/nav.js"></script>
+</header>
 <?php
 $limit=20; //Limit per page
 $consulta= $conn->prepare("SELECT * FROM phones"); //redudant but used to get $count amount
@@ -39,6 +50,7 @@ $phones->bindParam(1,$start, PDO::PARAM_INT);
 $phones->bindParam(2,$limit, PDO::PARAM_INT);
 if ($phones->execute()){
 if($count>0){
+    echo "<h2>El total de números telefónicos registrados es de: ". $count ."</h2>"; 
     echo "<table>";
     echo    "<tr>";
     echo    "<th>Expediente:</th>";
@@ -53,7 +65,8 @@ if($count>0){
     echo    "<td>" . $row->suspect . "</td>";
     echo    "</tr>";
     }
-    echo    "</table>";
+    echo    "<tr>";
+    echo    "<td colspan="."3".">";
     if ($page>1 && $page<2){
         echo "<a href=?page=".($page-1).">anterior</a>";
     } else if ($page>=2){
@@ -70,6 +83,9 @@ if ($page<($total_pages-1)){
 } else if ($page==($total_pages-1)){
     echo "<a href=?page=".($total_pages)."> Final</a>";
 }
+echo    "</td>";
+echo    "</tr>";
+echo    "</table>";
 } else{
     echo "<h2>No existen teléfonos registrados en la base de datos</h2>";
 }

@@ -14,21 +14,22 @@ if($_SESSION['loggedin']=="")
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/all.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <script src="js/jquery-3.4.1.js"></script>
     <title>Crear Denuncia</title>
 </head>
 <body>
-    <header>
-        <!-- navigation menu -->
-        <nav> 
-            <ul>
-                <a href="admin.php"><li>Menú</li></a>
-                <a href="modules/logout.php"><li>Salir</li></a>
-            <ul>
+<header>
+    <nav class="topnav" id="myTopnav">
+        <a href="admin.php">Menú</a>
+        <a href="consultas.php">Consultas</a>
+        <a href="denuncia.php" class="active">Tomar denuncia</a>
+        <a href="modules/logout.php">Salir</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
         </nav>
-        <!-- end navigation menu -->
-    </header>
+        <script src="js/nav.js"></script>
+</header>
 <!-- Script para número de teléfono -->
 <script type="text/javascript">
     $(document).ready(function(){
@@ -42,7 +43,7 @@ if($_SESSION['loggedin']=="")
             x++; //Increment field counter
             $(wrapper).append(fieldHTML); // Add field html
         } else{
-            alert('Ha alzando el máximo permitido de números telefónicos -5- por cada denuncia realizada')
+            alert(`Ha alzando el máximo permitido de números telefónicos ${maxField} por cada denuncia realizada`)
         }
     });
     $(wrapper).on('click', '.remove_phone', function(e){ //Once remove button is clicked
@@ -53,14 +54,15 @@ if($_SESSION['loggedin']=="")
     });
 </script>
 <main role="main">
-    <h1>Crear denuncia</h1>
+    <h2 style="text-align:center">Crear denuncia</h2>
     <!-- complaint form -->
-    <form action="modules/reg-denun.php" method="POST">
-        <h3>Datos de la víctima:</h3>
+    <form action="modules/reg-denun.php" method="POST" class="denuncia">
+    <div class="datosVictima">
+    <h3 style="text-align:center">Datos de la víctima:</h3>
         <table width="350px">
         <tr>
             <th><label for="expedient">Expediente: </label></th>
-            <td><input type="text" name="expedient" id="expedient" pattern="^[A-Za-z]-\d{2}-\d{4}-\d{5,6}" title="K-19-1234-12345" maxlength="15" size="18" placeholder="K-12-1234-12345" required></td>
+            <td><input type="text" name="expedient" id="expedient" pattern="^[A-Za-z]-\d{2}-\d{4}-\d{5,6}" title="K-19-1234-12345" maxlength="16" size="18" placeholder="K-12-1234-12345" required></td>
         </tr>            
         <tr>
             <th><label for="cedula_victima">Cédula de identidad: </label></th>
@@ -68,14 +70,16 @@ if($_SESSION['loggedin']=="")
         </tr>
         <tr>
             <th><label for="nombre_victima">Nombre: </label></th>
-            <td><input type="text" name="nombre_victima" id="nombre_victima" size="18" required></td>
+            <td><input type="text" name="nombre_victima" id="nombre_victima" pattern="[A-Za-z\s\u00f1\u00d1]+" title="Sólo se permiten letras" maxlength="40" size="18" required></td>
         </tr>
         <tr>
             <th><label for="monto-estafado">Monto estafado: </label></th>
             <td><input type="number" name="monto_estafado" id="monto_estafado" size="18" style="width:155px"></td>
             </tr>
         </table>
-        <h3>Datos del sospechoso:</h3>
+    </div>
+    <div class="datosSospechoso">
+        <h3 style="text-align:center">Datos del sospechoso:</h3>
         <table class="phone_wrapper" width="350px">
         <tr>
             <th><label for="cedula_sospechoso">Cédula de identidad: </label></th>
@@ -83,7 +87,7 @@ if($_SESSION['loggedin']=="")
         </tr>
         <tr>
             <th><label for="nombre_sospechoso">Nombre: </label></th>
-            <td><input type="text" name="nombre_sospechoso" id="nombre_sospechoso" size="20"></td>
+            <td><input type="text" name="nombre_sospechoso" id="nombre_sospechoso" pattern="[A-Za-z\s\u00f1\u00d1]+" title="Sólo se permiten letras" size="20" maxlength="40"></td>
         </tr>
         <tr>
             <th><label for="telefono_sospechoso">Teléfono: </label></th>                
@@ -104,7 +108,7 @@ if($_SESSION['loggedin']=="")
             x++; //Increment field counter
             $(wrapper).append(fieldHTML); // Add field html
         } else{
-            alert('Ha alzando el máximo permitido de cuentas bancarias -5- por cada denuncia realizada')
+            alert(`Ha alzando el máximo permitido de cuentas bancarias ${maxField} por cada denuncia realizada`)
         }
     });
     $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
@@ -114,7 +118,9 @@ if($_SESSION['loggedin']=="")
         });
     });
 </script>
-        <h3>Datos Bancarios: </h3>
+</div>
+<div class="cuentas">
+        <h3 style="text-align:center">Datos Bancarios: </h3>
         <table class="bank_wrapper" width="350px">
         <tr>
             <th><label for="banco_sospechoso">Entidad Bancaria: </label></th>
@@ -145,10 +151,13 @@ if($_SESSION['loggedin']=="")
             <input type="button" class="add_button" value="+" onClick="javascript:void(0);" title="Añadir campo" style="width:25px"></td>
         </tr>
         </table>
-        <h3>Descripción del hecho:</h3>
+        </div>
+        <div class="descripción">
+        <h3 style="text-align:center">Descripción del hecho:</h3>
         <textarea name="descripcion_denuncia" id="descripcion_denuncia" cols="47" rows="10" placeholder="Descripción detallada de lo ocurrido" maxlength="500"></textarea>
         <p><input type="submit" value="Registrar Denuncia"> <!-- register complaint -->
         <input type="reset" value="Borrar todo"></p> <!-- reset form button -->
+        </div>
     </form>
     </main>
     <script src="js/outTime.js"></script>

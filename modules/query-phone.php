@@ -56,7 +56,8 @@ if ($phones->execute()){
         echo    "<td>" . $row->expedient . "</td>";
         echo    "<td>" . $row->suspect . "</td>";
         }
-        echo    "</table>";
+        echo    "<tr>";
+        echo    "<td colspan="."2".">";
     if ($page>1 && $page<2){
         echo "<a href=?page=".($page-1).">anterior</a>";
     } else if ($page>=2){
@@ -73,6 +74,9 @@ if ($page<($total_pages-1)){
 } else if ($page==($total_pages-1)){
     echo "<a href=?page=".($total_pages)."> Final</a>";
 }
+echo    "</td>";
+echo    "</tr>";
+echo    "</table>";
 }   else {
         echo "No existen registros con el número telefónico: ".$telefono_sospechoso;
     }

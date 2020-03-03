@@ -13,4 +13,4 @@ Learn to use PHP, MySql, HTML5, CSS3 and JavaScript without frameworks.
 - [x] SQL prepared statements
 - [x] Queries Pagination
 - [x] Session Fixation
-- [ ] CSS _In Progress_ (Esto se va poner feo)
+- [x] CSS

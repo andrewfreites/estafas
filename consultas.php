@@ -14,43 +14,41 @@ exit;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/all.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <title>Consultas</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <a href="admin.php"><li>Menú</li></a>
-                <a href="modules/logout.php"><li>Salir</li></a>
-            </ul>
+<header>
+    <nav class="topnav" id="myTopnav">
+        <a href="admin.php">Menú</a>
+        <a href="consultas.php" class="active">Consultas</a>
+        <a href="denuncia.php">Tomar denuncia</a>
+        <a href="modules/logout.php">Salir</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
         </nav>
-    </header>
-    <p><h2>Consultas generales:</h2></p>
-    <table width="320px">
-        <tr>
-            <th> Cuentas </th>
-            <th> Teléfonos </th>
-            <th> Denuncias </th>
-        </tr>
-        <tr>
+        <script src="js/nav.js"></script>
+</header>
+    <h3 style="text-align:center">Consultas generales:</h3>
+    <table>
+    <tr>
     <!-- Consulta general cuentas -->
     <form action="modules/query-all-accounts.php" method="POST">
-    <td><input type="submit" value="Consultar"></td>
+    <td><input type="submit" value="Cuentas"></td>
     </form>
     <!-- Consulta general teléfonos -->
     <form action="modules/query-all-phones.php" method="POST">
-    <td><input type="submit" value="Consultar"></td>
+    <td><input type="submit" value="Teléfonos"></td>
     </form>
     <!-- Consulta general de denuncias -->
     <form action="modules/query-complaints.php" method="post">
-    <td><input type="submit" value="Consultar"></td>
+    <td><input type="submit" value="Expedientes"></td>
     </form>
     </tr>
     </table>
-    <h2>Consultas detalladas:</h2>
+    <h3 style="text-align:center">Consultas detalladas:</h3>
     <!-- formulario para numero de telefono -->
-    <table width="320px">
+    <table>
     <tr><th><p>Por teléfono de sospechoso</p></th></tr>
     <form action="modules/query-phone.php" method="POST">
     <tr><td><label for="telefono_sospechoso">Teléfono: </label>
@@ -60,7 +58,7 @@ exit;
     </tr>
     </table>
     <!-- formulario para numero de cuenta -->
-    <table width="320px">
+    <table>
     <tr><th><p>Por número de cuenta</p></th></tr>
     <form action="modules/query-account.php" method="POST">
     <tr><td><label for="cuenta_sospechoso">Cuenta: </label>
@@ -70,7 +68,7 @@ exit;
     </tr>
     </table>
     <!-- formulario para expediente -->
-    <table width="320px">
+    <table>
     <tr><th><p>Por expediente</p></th></tr>
     <form action="modules/query-expedient.php" method="POST">
     <tr><td><label for="expediente">Expediente: </label>
@@ -80,7 +78,7 @@ exit;
     </tr>
     </table>
     <!-- formulario para cedula -->
-    <table width="320px">
+    <table>
     <tr><th><p>Por cédula</p></th></tr>
     <form action="modules/query-cedula.php" method="POST">
     <tr><td><label for="">Número: </label>

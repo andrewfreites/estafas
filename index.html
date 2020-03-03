@@ -5,17 +5,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<title>Iniciar Sesión</title>
+	<title>Sistema de Denuncias</title>
 </head>
 <body>
-	<img src="images/usuario.png" alt="icono de usuario">
-	<form action="modules/check-login.php" method="POST">
+<section>
+	<form action="modules/check-login.php" method="POST" class="login">
+		<img src="images/cicpc.svg" alt="icono de cicpc" width="180px" height="180px">
 		<label for="email">Email: </label>
-		<p><input type="email" id="email" name="email" required></p>
+		<input type="email" id="email" name="email" required>
 		<label for="password">Password: </label>
-		<p><input type="password" id="password" name="pass" required></p>
+		<input type="password" id="password" name="pass" required>
 		<input type="submit" value="Entrar">
-		<input type="reset" value="Borrar">
 	</form>
+</section>	
 </body>
 </html>

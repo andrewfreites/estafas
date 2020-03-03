@@ -54,7 +54,8 @@ if ($suspects->execute()){
         echo    "<td>" . $row->nombre . "</td>";
         echo    "</tr>";
         }
-        echo    "</table>";
+        echo    "<tr>";
+        echo    "<td colspan="."2".">";
         if ($page>1 && $page<2){
             echo "<a href=?page=".($page-1).">anterior</a>";
         } else if ($page>=2){
@@ -71,6 +72,9 @@ if ($suspects->execute()){
         } else if ($page==($total_pages-1)){
         echo "<a href=?page=".($total_pages)."> Final</a>";
         }
+        echo    "</td>";
+        echo    "</tr>";
+        echo    "</table>";
 } else {
     echo "<h3>No existen registros con el número de cédula: ".$cedula. "</h3>";
 }
