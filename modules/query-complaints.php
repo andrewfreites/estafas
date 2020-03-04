@@ -88,7 +88,7 @@ echo    "</td>";
 echo    "</tr>";
 echo    "</table>";
 } else {
-    echo "<h3>No existen cuentas registradas en la base de datos</h3>";
+    echo "<h3>No existen expedientes registrados en la base de datos</h3>";
 }
 } else {
     $complaints->error;
