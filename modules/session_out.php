@@ -15,6 +15,9 @@
     <title>Sesión caducada</title>
 </head>
 <body>
-    <p><h3>Tu sesión ha caducado por seguridad debido a la inactividad, <a href="../index.html">Iniciar Sesión</h3></a></p>
+<center>
+<img src="../images/timeout.png" alt="time out image">
+</center>
+    <p><h3 style="text-align:center">Tu sesión ha caducado por seguridad debido a la inactividad, <a href="../index.html">Iniciar Sesión</h3></a></p>
 </body>
 </html>

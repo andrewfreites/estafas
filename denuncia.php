@@ -154,7 +154,7 @@ if($_SESSION['loggedin']=="")
         </div>
         <div class="descripción">
         <h3 style="text-align:center">Descripción del hecho:</h3>
-        <textarea name="descripcion_denuncia" id="descripcion_denuncia" cols="47" rows="10" placeholder="Descripción detallada de lo ocurrido" maxlength="500"></textarea>
+        <textarea name="descripcion_denuncia" id="descripcion_denuncia" cols="40" rows="10" placeholder="Descripción detallada de lo ocurrido" maxlength="500"></textarea>
         <p><input type="submit" value="Registrar Denuncia"> <!-- register complaint -->
         <input type="reset" value="Borrar todo"></p> <!-- reset form button -->
         </div>

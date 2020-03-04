@@ -11,7 +11,7 @@
 include 'conexion.php';
 // consulta para revisar si el email ya existe
 $checkEmail = $conn->prepare("SELECT * FROM users WHERE email = ? ");
-$checkEmail->bindParam(1, $_POST[email]);
+$checkEmail->bindParam(1, $_POST['email']);
 if($checkEmail->execute()){
 } else{
 	$checkEmail->error;
