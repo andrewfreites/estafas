@@ -15,9 +15,7 @@ if($_SESSION['loggedin']=="")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">  
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="js/jquery-3.4.1.js"></script>
     <title>Crear Denuncia</title>
 </head>

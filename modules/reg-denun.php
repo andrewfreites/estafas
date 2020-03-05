@@ -145,11 +145,22 @@ $conn=null;
 <html lang="es">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" type="text/css" href="../css/styles.css">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="../css/all.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
   <title>Procesando registro de denuncia</title>
 </head>
 <body>
+<header>
+    <nav class="topnav" id="myTopnav">
+        <a href="../admin.php">Menú</a>
+        <a href="../consultas.php" class="active">Consultas</a>
+        <a href="../denuncia.php">Tomar denuncia</a>
+        <a href="../modules/logout.php">Salir</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </nav>
+        <script src="../js/nav.js"></script>
+</header>
 <script src="../js/countdown.js"></script>
 <p><h2>Serás regresado automáticamente a la toma de denuncias en <span id="countdown"></span> segundos, si no haz click <a href="../denuncia.php">aquí</a></h2></p>
 </body>
