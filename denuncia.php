@@ -72,7 +72,7 @@ if($_SESSION['loggedin']=="")
         </tr>
         <tr>
             <th><label for="nombre_victima">Nombre: </label></th>
-            <td><input type="text" name="nombre_victima" id="nombre_victima" pattern="[A-Za-z\s\u00f1\u00d1]+" title="Sólo se permiten letras" maxlength="40" size="18" required></td>
+            <td><input type="text" name="nombre_victima" id="nombre_victima" pattern="[a-zA-ZñÑáéíóúüÁÉÍÓÚÜ\s]+" title="Sólo se permiten letras" maxlength="40" size="18" required></td>
         </tr>
         <tr>
             <th><label for="monto-estafado">Monto estafado: </label></th>
@@ -89,7 +89,7 @@ if($_SESSION['loggedin']=="")
         </tr>
         <tr>
             <th><label for="nombre_sospechoso">Nombre: </label></th>
-            <td><input type="text" name="nombre_sospechoso" id="nombre_sospechoso" pattern="[A-Za-z\s\u00f1\u00d1]+" title="Sólo se permiten letras" size="20" maxlength="40"></td>
+            <td><input type="text" name="nombre_sospechoso" id="nombre_sospechoso" pattern="[a-zA-ZñÑáéíóúüÁÉÍÓÚÜ\s]+" title="Sólo se permiten letras" size="20" maxlength="40"></td>
         </tr>
         <tr>
             <th><label for="telefono_sospechoso">Teléfono: </label></th>                
