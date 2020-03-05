@@ -103,6 +103,7 @@ if ($queryPhones->execute()){
 }
 }
 //SUSPECT QUERY
+if ($cedula_sospechoso!=""){
 $CheckSuspect = $conn->prepare("SELECT * FROM suspects WHERE cedula = ?");
 $CheckSuspect->bindParam(1, $cedula_sospechoso);
 if ($CheckSuspect->execute()){
@@ -125,6 +126,17 @@ if ($QuerySuspect->execute()){
   echo "<p><h3>Registrado correctamente el sospechoso</h3></p>";
 } else {
   $QuerySuspect->error;
+}
+} else {
+  $QuerySuspect=$conn->prepare("INSERT INTO suspects (expedient, nombre, cedula) VALUES (?, ?, ?)");
+$QuerySuspect->bindParam(1, $expediente);
+$QuerySuspect->bindParam(2, $nombre_sospechoso);
+$QuerySuspect->bindParam(3, $cedula_sospechoso);
+if ($QuerySuspect->execute()){
+  echo "<p><h3>Registrado correctamente el sospechoso</h3></p>";
+} else {
+  $QuerySuspect->error;
+}
 }
 //COMPLAINT REGISTRATION
 $QueryComplaint=$conn->prepare("INSERT INTO complaints (expedient, monto, detail, fecha) VALUES (?, ?, ?, ?)");
@@ -151,16 +163,6 @@ $conn=null;
   <title>Procesando registro de denuncia</title>
 </head>
 <body>
-<header>
-    <nav class="topnav" id="myTopnav">
-        <a href="../admin.php">Menú</a>
-        <a href="../consultas.php" class="active">Consultas</a>
-        <a href="../denuncia.php">Tomar denuncia</a>
-        <a href="../modules/logout.php">Salir</a>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
-        </nav>
-        <script src="../js/nav.js"></script>
-</header>
 <script src="../js/countdown.js"></script>
 <p><h2>Serás regresado automáticamente a la toma de denuncias en <span id="countdown"></span> segundos, si no haz click <a href="../denuncia.php">aquí</a></h2></p>
 </body>
