@@ -2,7 +2,7 @@
 //variables
 $servername = "127.0.0.1";
 $username = "root";
-$password = "12345";
+$password = "1234";
 $database = "denuncias";
 $port= "3308";
 

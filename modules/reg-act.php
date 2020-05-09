@@ -40,7 +40,7 @@ $query->bindParam(2, $email);
 $query->bindParam(3, $passHash);
 if ($query->execute()) {
 	echo "<p>La cuenta ha sido creada satisfactoriamente</p>";
-	header ("refresh:5;url=../index.php");
+	header ("refresh:5;url=../index.html");
 }
 else {
 	$query->error;

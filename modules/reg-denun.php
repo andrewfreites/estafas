@@ -7,6 +7,7 @@ if($_SESSION['loggedin']=="")
  exit; 
 }
 include 'conexion.php';
+include 'checkUser.php';
 //variables from denuncia.php
 $expediente=$_POST['expedient']; 
 $cedula_sospechoso=$_POST['cedula_sospechoso']; 
